@@ -49,10 +49,11 @@ $data = getPDO();
 
         if($results && password_verify($password, $results['password_user'])){
 
+            session_start();
             $_SESSION['user_id'] = $results['id_user'];
             $_SESSION['name_user'] = $results['name_user'];
             $_SESSION['email_user'] = $results['email_user'];
-            $_SESSION['role_user'] = $results['role_id'];
+            $_SESSION['role_id'] = $results['role_id'];
 
 
         header("Location: ../pages/dashboard.php");
