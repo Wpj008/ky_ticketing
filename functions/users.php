@@ -21,7 +21,7 @@ function registerUser($name, $email, $password, $role) {
         $queryRegister->execute();
 
         echo "Inscription réussie !";
-        header("Location: ../index.php");
+        header("Location: ../pages/dashboard.php");
         exit;
         
     } catch (PDOException $e) {
@@ -50,6 +50,7 @@ $data = getPDO();
         if($results && password_verify($password, $results['password_user'])){
 
             session_start();
+            $_SESSION['is_logged_in'] = true;
             $_SESSION['user_id'] = $results['id_user'];
             $_SESSION['name_user'] = $results['name_user'];
             $_SESSION['email_user'] = $results['email_user'];
@@ -87,6 +88,53 @@ function SelectAllRoles(){
         echo "Erreur lors de la récupération des rôles : " . $e->getMessage();
         exit;
     }
+}
+
+//function  de verification de la connexion user
+function checkLogin(){
+// Vérifier si l'utilisateur est connecté
+if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
+    header('Location: ../index.php');  // Rediriger vers la page de connexion
+    exit;  // Arrêter l'exécution des scripts suivants
+}
+}
+
+function getUser(){
+
+    try{
+
+    $queryUser = getPDO()->prepare("SELECT* FROM users WHERE role_id = 1");
+    $queryUser->execute();
+
+    $users = $queryUser->fetchAll(PDO::FETCH_ASSOC);
+
+    return $users;
+
+    }catch(PDOException $e){
+
+        echo "Erreur lors de la récupération de l'utilisateur : " . $e->getMessage();
+        exit;
+    }
+
+}
+
+    function getTech(){
+        
+        try{
+
+            $queryTech = getPDO()->prepare("SELECT* FROM users WHERE role_id = 2");
+            $queryTech->execute();
+    
+            $techs = $queryTech->fetchAll(PDO::FETCH_ASSOC);
+    
+            return $techs;
+    
+            }catch(PDOException $e){
+    
+                echo "Erreur lors de la récupération des techniciens : " . $e->getMessage();
+                exit;
+    }
+
 }
 
 

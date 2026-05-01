@@ -3,6 +3,8 @@ session_start();
 require_once "../functions/data.php";
 require_once "../functions/users.php";
 
+checkLogin();
+
 if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
 
 

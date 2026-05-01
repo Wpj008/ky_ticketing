@@ -1,58 +1,60 @@
+<?php 
+session_start();
+require_once "../functions/users.php";
+require_once "../functions/tickets.php";
+checkLogin();
+
+$callTickets = selectAllTickets();
+
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Admin</title>
-   
-</head> <link rel="stylesheet" href="../assets/css/dashboard_admin.css">
+    <title>Dashboard Administrateur</title>
+    <link rel="stylesheet" href="../assets/css/dashboard_tech.css">
+</head>
 <body>
 
-<div class="container">
+<!-- HEADER -->
+<?php include '../partials/header.php'; ?>
 
-    <!-- Sidebar -->
-    <aside class="sidebar">
-        <h2>SupportPro</h2>
-        <nav>
-            <a href="#">Dashboard</a>
-            <a href="#">Tickets</a>
-            <a href="#">Utilisateurs</a>
-        </nav>
-    </aside>
+<!-- SIDEBAR -->
+<?php include '../partials/sidebar.php'; ?>
 
-    <!-- Main -->
-    <main class="main">
+<!-- OVERLAY (mobile) -->
+<div class="overlay" id="overlay"></div>
 
-        <!-- Header -->
-        <header class="header">
-            <h1>Dashboard Administrateur</h1>
-            <div class="user">
-                <span>Admin</span>
-                <button class="logout">Déconnexion</button>
-            </div>
-        </header>
+<!-- MAIN -->
+<main class="main-content">
+    <div class="content-wrapper">
 
-        <!-- Stats simples (autorisées car dashboard) -->
+        <!-- STATS -->
         <section class="stats">
             <div class="card">
                 <h3>Total Tickets</h3>
                 <p>120</p>
             </div>
+
             <div class="card">
                 <h3>En cours</h3>
                 <p>35</p>
             </div>
+
             <div class="card">
                 <h3>Résolus</h3>
                 <p>60</p>
             </div>
+
             <div class="card">
                 <h3>Critiques</h3>
                 <p>10</p>
             </div>
         </section>
 
-        <!-- Table tickets -->
+        <!-- TABLE -->
         <section class="table-section">
             <h2>Liste des tickets</h2>
 
@@ -70,33 +72,41 @@
                 </thead>
 
                 <tbody>
+                
+                <?php 
+                  $i = 0;
+                  foreach($callTickets as $ticket):
+                    $i++;
+
+                    $_SESSION['id_ticket'] = $ticket['id_ticket'];
+                    ?>    
                     <tr>
-                        <td>#1</td>
-                        <td>Bug connexion</td>
-                        <td>Richard</td>
-                        <td><span class="badge high">Haute</span></td>
-                        <td><span class="badge progress">En cours</span></td>
-                        <td>Paul</td>
-                        <td><button class="btn">Voir</button></td>
+                        <td data-label="ID"><?= $i ?></td>
+                        <td data-label="Titre"><?= $ticket['title_ticket'] ?></td>
+                        <td data-label="Utilisateur"><?= $ticket['name_user'] ?></td>
+                        <td data-label="Priorité"><span class="badge high"><?= $ticket['name_priority'] ?></span></td>
+                        <td data-label="Statut">
+                            <span class="badge new"><?= $ticket['name_statut'] ?></span>
+                        </td>
+                        <td data-label="Assigné à">-</td>
+                        <form method="POST" action="detail_ticket.php">
+                            <input type="hidden" name="id_ticket" value="<?= $ticket['id_ticket']; ?>">
+                        <td data-label="Action"><button name="submit-ticket" class="btn">Voir</button></td>
+                        </form>
                     </tr>
 
-                    <tr>
-                        <td>#2</td>
-                        <td>Erreur paiement</td>
-                        <td>Marie</td>
-                        <td><span class="badge critical">Critique</span></td>
-                        <td><span class="badge new">Nouveau</span></td>
-                        <td>-</td>
-                        <td><button class="btn">Assigner</button></td>
-                    </tr>
+                    <?php endforeach; ?>
+
                 </tbody>
             </table>
 
         </section>
 
-    </main>
+    </div>
+</main>
 
-</div>
+<!-- JS -->
+<script src="../assets/js/app.js"></script>
 
 </body>
 </html>

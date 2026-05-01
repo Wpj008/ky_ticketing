@@ -1,85 +1,79 @@
+<?php 
+session_start();
+require_once "../functions/users.php";
+require_once "../functions/tickets.php";
+checkLogin();
+
+    $callTickets = selectAllTickets();
+
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Utilisateur</title>
+    <title>Dashboard User</title>
     <link rel="stylesheet" href="../assets/css/dashboard_user.css">
 </head>
 <body>
 
-<div class="container">
+<?php include '../partials/header.php'; ?>
+<?php include '../partials/sidebar.php'; ?>
 
-    <!-- Sidebar -->
-    <aside class="sidebar">
-        <h2>SupportPro</h2>
-        <nav>
-            <a href="#">Dashboard</a>
-            <a href="#">Mes tickets</a>
-        </nav>
-    </aside>
+<div class="overlay" id="overlay"></div>
 
-    <!-- Main -->
-    <main class="main">
-
-        <!-- Header -->
-        <header class="header">
-            <h1>Mes Tickets</h1>
-            <div class="user">
-                <span>Utilisateur</span>
-                <button class="logout">Déconnexion</button>
-            </div>
-        </header>
-
-        <!-- Bouton création -->
+<main class="main-content">
+    <div class="content-wrapper">
         <section class="actions">
-            <button class="btn">+ Créer un ticket</button>
+            <a href="../pages/createTicket.php" class="btn">+ Créer un ticket</a>
         </section>
 
-        <!-- Table -->
         <section class="table-section">
             <h2>Liste de mes tickets</h2>
 
             <table>
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Titre</th>
+                        <th>#</th>
+                        <th>Sujet</th>
                         <th>Priorité</th>
                         <th>Statut</th>
                         <th>Assigné à</th>
                         <th>Action</th>
                     </tr>
                 </thead>
-
                 <tbody>
 
-                    <tr>
-                        <td>#1</td>
-                        <td>Problème connexion</td>
-                        <td><span class="badge high">Haute</span></td>
-                        <td><span class="badge progress">En cours</span></td>
-                        <td>Paul</td>
-                        <td><button class="btn">Voir</button></td>
-                    </tr>
+                    <?php 
 
-                    <tr>
-                        <td>#2</td>
-                        <td>Bug affichage</td>
-                        <td><span class="badge new">Faible</span></td>
-                        <td><span class="badge new">Nouveau</span></td>
-                        <td>-</td>
-                        <td><button class="btn">Voir</button></td>
-                    </tr>
+                    $i = 0;
+                    
+                    foreach ($callTickets as $ticket):
 
+                        $i++;
+
+                        $_SESSION['id_ticket'] = $ticket['id_ticket'];
+
+                        ?>
+                    <tr>
+                        <td data-label="ID">#<?= $i ?></td>
+                        <td data-label="Sujet"><?= $ticket['title_ticket']; ?></td>
+                        <td data-label="Priorité"><span class="badge high"><?= $ticket['name_priority']; ?></span></td>
+                        <td data-label="Statut"><span class="badge progress"><?= $ticket['name_statut']; ?></span></td>
+                        <td data-label="Assigné à"><?= $ticket['name_user']; ?></td>
+                        <form method="POST" action="detail_ticket.php">
+                            <input type="hidden" name="id_ticket" value="<?= $ticket['id_ticket']; ?>">
+                        <td data-label="Action"><button name="submit-ticket" class="btn">Voir</button></td>
+                        </form>
+                    </tr>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
-
         </section>
+    </div>
+</main>
 
-    </main>
-
-</div>
-
+<script src="../assets/js/app.js"></script>
 </body>
 </html>

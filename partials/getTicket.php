@@ -6,14 +6,17 @@ checkLogin();
 
 $callTickets = selectAllTickets();
 
+
 ?>
+
+ 
 
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Technicien</title>
+    <title>Tickets</title>
     <link rel="stylesheet" href="../assets/css/dashboard_tech.css">
 </head>
 <body>
@@ -25,6 +28,29 @@ $callTickets = selectAllTickets();
 
 <main class="main-content">
     <div class="content-wrapper">
+
+        <!-- STATS -->
+        <section class="stats">
+            <div class="card">
+                <h3>Total tickets</h3>
+                <p>120</p>
+            </div>
+
+            <div class="card">
+                <h3>Nouveaux</h3>
+                <p>20</p>
+            </div>
+
+            <div class="card">
+                <h3>En cours</h3>
+                <p>35</p>
+            </div>
+
+            <div class="card">
+                <h3>Résolus</h3>
+                <p>60</p>
+            </div>
+        </section>
 
         <!-- FILTRES -->
         <section class="filters">
@@ -42,20 +68,11 @@ $callTickets = selectAllTickets();
                 <option>Haute</option>
                 <option>Critique</option>
             </select>
-
-            <select>
-                <option>Assignation</option>
-                <option>Tous</option>
-                <option>Mes tickets</option>
-                <option>Non assignés</option>
-            </select>
         </section>
 
         <!-- TABLE -->
         <section class="table-section">
             <h2>Liste des tickets</h2>
-
-
 
             <table>
                 <thead>
@@ -72,12 +89,10 @@ $callTickets = selectAllTickets();
 
                 <tbody>
 
-                <?php 
+                  <?php 
                   $i = 0;
                   foreach($callTickets as $ticket):
                     $i++;
-                    
-                    $_SESSION['id_ticket'] = $ticket['id_ticket'];
                     ?>    
                     <tr>
                         <td data-label="ID"><?= $i ?></td>
@@ -96,14 +111,12 @@ $callTickets = selectAllTickets();
 
                     <?php endforeach; ?>
 
-
                 </tbody>
             </table>
         </section>
 
     </div>
 </main>
-
 
 <script src="../assets/js/app.js"></script>
 
