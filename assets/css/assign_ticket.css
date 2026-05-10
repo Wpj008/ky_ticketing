@@ -1,0 +1,110 @@
+/* INFOS */
+
+.ticket-info {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    font-size: 14px;
+}
+
+/* ASSIGNATION */
+
+.assign-row {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.assign-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.assign-controls select {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #dbe3ef;
+    background: #fff;
+    cursor: pointer;
+}
+
+/* CONVERSATION */
+
+.messages {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.message {
+    padding: 12px;
+    border-radius: 10px;
+    max-width: 70%;
+}
+
+.message.user {
+    background: #e3f2fd;
+    align-self: flex-start;
+}
+
+.message.tech {
+    background: #0d6efd;
+    color: #fff;
+    align-self: flex-end;
+}
+
+.message-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    margin-bottom: 5px;
+    opacity: 0.8;
+}
+
+/* FORM MESSAGE */
+
+.message-form {
+    display: flex;
+    gap: 10px;
+}
+
+.message-form textarea {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #dbe3ef;
+    resize: none;
+}
+
+.message-form textarea:focus {
+    outline: none;
+    border-color: #0d6efd;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+
+    .assign-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .assign-controls .btn {
+        width: 100%;
+    }
+
+    .message {
+        max-width: 100%;
+    }
+
+    .message-form {
+        flex-direction: column;
+    }
+
+    .message-form .btn {
+        width: 100%;
+    }
+}

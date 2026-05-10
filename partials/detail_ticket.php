@@ -4,7 +4,7 @@ require_once "../functions/users.php";
 require_once "../functions/tickets.php";
 checkLogin();
 
-$callTickets = selectAllTickets();
+//$callTickets = selectAllTickets();
 
 $ticket = $_SESSION['id_ticket'];
 
@@ -51,8 +51,10 @@ $ticket = $_SESSION['id_ticket'];
 
                 <div><strong>Date :</strong> <?= $callOnlyTicket['created_at_ticket'] ?></div>
 
-                <div><strong>Utilisateur :</strong> <?= $callOnlyTicket['name_user'] ?> (<?= $callOnlyTicket['email_user'] ?>)</div>
-                <div><strong>Technicien :</strong> Paul Dupont</div>
+                <div><strong>Utilisateur :</strong> <?= $callOnlyTicket['creator_name'] ?></div>
+                <div><strong>Technicien :</strong> <?= $callOnlyTicket['tech_name'] ?></div>
+                <br><br><br>
+                <div><a class="btn" href="update_statut_or_priority.php?id_ticket=<?= $ticket ?>">Modifier le statut ou la priorité</a></div>
 
             </div>
         </section>

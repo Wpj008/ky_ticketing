@@ -31,7 +31,29 @@ function selectAllTickets(){
 
     try{
 
-    $queryGetTickets = getPDO()->prepare("SELECT * FROM tickets INNER JOIN priorities ON tickets.priority_id = priorities.id_priority INNER JOIN statuts On tickets.statut_id = statuts.id_statut INNER JOIN users ON tickets.user_id = users.id_user");
+   // $queryGetTickets = getPDO()->prepare("SELECT * FROM tickets INNER JOIN priorities ON tickets.priority_id = priorities.id_priority INNER JOIN statuts On tickets.statut_id = statuts.id_statut INNER JOIN users ON tickets.user_id = users.id_user");
+
+
+   $queryGetTickets = getPDO()->prepare("SELECT tickets.*,
+   priorities.name_priority,
+   statuts.name_statut,
+ 
+   creator.name_user AS creator_name,
+   
+   tech.name_user AS tech_name
+   FROM tickets
+
+INNER JOIN priorities 
+    ON tickets.priority_id = priorities.id_priority
+
+INNER JOIN statuts 
+    ON tickets.statut_id = statuts.id_statut
+
+INNER JOIN users creator
+    ON tickets.user_id = creator.id_user
+
+LEFT JOIN users tech
+    ON tickets.assigned_to = tech.id_user");
 
     $queryGetTickets->execute();
 
@@ -69,12 +91,57 @@ function selectAllPriorities(){
 
 }
 
+function selectAllStatuts(){
+
+    try{
+
+        $queryStatut = getPDO()->prepare("SELECT * FROM statuts");
+
+        $queryStatut->execute();
+
+        $results = $queryStatut->fetchAll(PDO::FETCH_ASSOC);
+
+        return $results;
+
+    }catch(PDOException $e){
+        echo "Erreur lors de la récupération des statuts : " . $e->getMessage();
+        exit;
+    }
+
+}
+
+
+
     function selectOnlyTicket($id_ticket){
 
         try{
 
-            $queryOnlyTicket = getPDO()->prepare("SELECT * FROM tickets INNER JOIN priorities ON tickets.priority_id = priorities.id_priority INNER JOIN statuts On tickets.statut_id = statuts.id_statut INNER JOIN users ON tickets.user_id = users.id_user WHERE id_ticket = :id_ticket");
+            //$queryOnlyTicket = getPDO()->prepare("SELECT * FROM tickets INNER JOIN priorities ON tickets.priority_id = priorities.id_priority INNER JOIN statuts On tickets.statut_id = statuts.id_statut INNER JOIN users ON tickets.user_id = users.id_user WHERE id_ticket = :id_ticket");
 
+
+
+
+
+            $queryOnlyTicket = getPDO()->prepare("SELECT tickets.*,
+   priorities.name_priority,
+   statuts.name_statut,
+ 
+   creator.name_user AS creator_name,
+   
+   tech.name_user AS tech_name
+   FROM tickets
+
+INNER JOIN priorities 
+    ON tickets.priority_id = priorities.id_priority
+
+INNER JOIN statuts 
+    ON tickets.statut_id = statuts.id_statut
+
+INNER JOIN users creator
+    ON tickets.user_id = creator.id_user
+
+LEFT JOIN users tech
+    ON tickets.assigned_to = tech.id_user WHERE id_ticket = :id_ticket");
             $queryOnlyTicket->bindParam(':id_ticket', $id_ticket);
             $queryOnlyTicket->execute();
 
@@ -89,14 +156,72 @@ function selectAllPriorities(){
 
     }
 
+    function assignTechToTicket($id_ticket, $id_tech){
 
+        try{
 
+            $queryAssignTech = getPDO()->prepare("UPDATE tickets SET assigned_to = :id_tech WHERE id_ticket = :id_ticket");
 
+            $queryAssignTech->bindParam(':id_tech', $id_tech);
+            $queryAssignTech->bindParam(':id_ticket', $id_ticket);
 
+            $queryAssignTech->execute();
 
+            echo "Technicien assigné avec succès !";
+            header("Location: ../pages/dashboard.php");
+            exit;
 
+        }catch(PDOException $e){
+            echo "Erreur lors de l'assignation du technicien : " . $e->getMessage();
 
+        }
 
+    }
+
+    function updateStatut($id_ticket, $id_statut){
+
+        try{
+
+        
+            $queryUpdateStatut = getPDO()->prepare("UPDATE tickets SET statut_id = :id_statut WHERE id_ticket = :id_ticket");
+
+            $queryUpdateStatut->bindParam(':id_statut', $id_statut);
+            $queryUpdateStatut->bindParam(':id_ticket', $id_ticket);
+
+            $queryUpdateStatut->execute();
+
+            echo "Statut mis à jour avec succès !";
+            header("Location: ../pages/dashboard.php");
+            exit;
+
+        }catch(PDOException $e){
+            echo "Erreur lors de la mise à jour du statut : " . $e->getMessage();
+            exit;
+        }
+
+    }
+
+    function updatePriority($id_ticket, $id_priority){
+
+        try{
+
+            $queryUpdatePriority = getPDO()->prepare("UPDATE tickets SET priority_id = :id_priority WHERE id_ticket = :id_ticket");
+
+            $queryUpdatePriority->bindParam(':id_priority', $id_priority);
+            $queryUpdatePriority->bindParam(':id_ticket', $id_ticket);
+
+            $queryUpdatePriority->execute();
+
+            echo "Priorité mise à jour avec succès !";
+            header("Location: ../pages/dashboard.php");
+            exit;
+
+        }catch(PDOException $e){
+            echo "Erreur lors de la mise à jour de la priorité : " . $e->getMessage();
+            exit;
+        }
+
+    }
 
 
 

@@ -14,6 +14,4 @@ header("Location: ../index.php");
 
 
 
-
-
 ?>

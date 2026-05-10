@@ -68,6 +68,7 @@ $callTickets = selectAllTickets();
                         <th>Statut</th>
                         <th>Assigné à</th>
                         <th>Action</th>
+                        <th>Assignation</th>
                     </tr>
                 </thead>
 
@@ -83,16 +84,20 @@ $callTickets = selectAllTickets();
                     <tr>
                         <td data-label="ID"><?= $i ?></td>
                         <td data-label="Titre"><?= $ticket['title_ticket'] ?></td>
-                        <td data-label="Utilisateur"><?= $ticket['name_user'] ?></td>
+                        <td data-label="Utilisateur"><?= $ticket['creator_name'] ?></td>
                         <td data-label="Priorité"><span class="badge high"><?= $ticket['name_priority'] ?></span></td>
                         <td data-label="Statut">
                             <span class="badge new"><?= $ticket['name_statut'] ?></span>
                         </td>
-                        <td data-label="Assigné à">-</td>
+                        <td data-label="Assigné à"><?= $ticket['tech_name'] ?? '-' ?></td>
                         <form method="POST" action="detail_ticket.php">
                             <input type="hidden" name="id_ticket" value="<?= $ticket['id_ticket']; ?>">
                         <td data-label="Action"><button name="submit-ticket" class="btn">Voir</button></td>
                         </form>
+                        <?php if($ticket['assigned_to'] === null): ?>
+                            <td data-label="Action"><a href="assign_ticket.php?id=<?= $ticket['id_ticket'] ?>" class="btn">Assigner</a></td>
+                        <?php endif; ?>
+                        
                     </tr>
 
                     <?php endforeach; ?>

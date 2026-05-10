@@ -69,7 +69,8 @@ $callUser = getUser();
                         <th>#</th>
                         <th>Nom</th>
                         <th>Email</th>
-                        <th>Rôle</th>
+                        <th>Total Tickets</th>
+                        <th>En cours</th>
                         <th>Date création</th>
                         <th>Action</th>
                     </tr>
@@ -88,7 +89,8 @@ $callUser = getUser();
                         <td data-label="ID"><?= $i ?></td>
                         <td data-label="Nom"><?= $user['name_user'] ?></td>
                         <td data-label="Email"><?= $user['email_user'] ?></td>
-                        <td data-label="Rôle"><?= $user['role_id'] ?></td>
+                        <td data-label="Total Tickets"><?= $user['total_tickets'] ?></td>
+                        <td data-label="En cours"><?= $user['in_progress'] ?></td>
                         <td data-label="Date"><?= $user['created_at_user'] ?></td>
                         <td data-label="Action">
                             <button class="btn">Voir</button>
