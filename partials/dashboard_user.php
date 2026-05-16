@@ -57,7 +57,7 @@ checkLogin();
 
                         ?>
                     <tr>
-                        <td data-label="ID">#<?= $i ?></td>
+                        <td data-label="ID"><?= $i ?></td>
                         <td data-label="Sujet"><?= $ticket['title_ticket']; ?></td>
                         <td data-label="Priorité"><span class="badge high"><?= $ticket['name_priority']; ?></span></td>
                         <td data-label="Statut"><span class="badge progress"><?= $ticket['name_statut']; ?></span></td>

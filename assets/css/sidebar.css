@@ -42,8 +42,8 @@
 
 /* Active */
 .sidebar-nav a.active {
-    background: white;
-    color: #0d47a1;
+    background: #0d47a1;
+    color:  white;
     font-weight: bold;
 }
 

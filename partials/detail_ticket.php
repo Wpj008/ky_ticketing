@@ -2,13 +2,16 @@
 session_start();
 require_once "../functions/users.php";
 require_once "../functions/tickets.php";
+require_once "../functions/messages.php";
+
 checkLogin();
 
-//$callTickets = selectAllTickets();
+
 
 $ticket = $_SESSION['id_ticket'];
 
     $callOnlyTicket = selectOnlyTicket($ticket);
+    $callMessage = selectMessage($ticket);
 
 ?>
 
@@ -35,7 +38,6 @@ $ticket = $_SESSION['id_ticket'];
         <!-- INFOS TICKET -->
         <section class="table-section">
             <h2>Détail du ticket N° <?= $ticket ?></h2>
-
             <div class="ticket-info">
 
                 <div><strong>Titre :</strong> <?= $callOnlyTicket['title_ticket'] ?></div>
@@ -54,7 +56,11 @@ $ticket = $_SESSION['id_ticket'];
                 <div><strong>Utilisateur :</strong> <?= $callOnlyTicket['creator_name'] ?></div>
                 <div><strong>Technicien :</strong> <?= $callOnlyTicket['tech_name'] ?></div>
                 <br><br><br>
-                <div><a class="btn" href="update_statut_or_priority.php?id_ticket=<?= $ticket ?>">Modifier le statut ou la priorité</a></div>
+                <div>
+                 <?php if($_SESSION['role_id'] != 1):   ?>
+                <a class="btn" href="update_statut_or_priority.php?id_ticket=<?= $ticket ?>">Modifier le statut ou la priorité</a>
+           <?php endif ?>
+            </div>
 
             </div>
         </section>
@@ -65,31 +71,46 @@ $ticket = $_SESSION['id_ticket'];
 
             <div class="messages">
 
-                <!-- Message utilisateur -->
-                <div class="message user">
-                    <div class="message-header">
-                        <span>Richard</span>
-                        <span class="date">01/04/2026 10:00</span>
-                    </div>
-                    <p>Bonjour, je n'arrive plus à me connecter.</p>
-                </div>
+<?php foreach ($callMessage as $message): ?>
 
-                <!-- Message technicien -->
-                <div class="message tech">
-                    <div class="message-header">
-                        <span>Paul</span>
-                        <span class="date">01/04/2026 10:15</span>
-                    </div>
-                    <p>Bonjour, nous regardons le problème.</p>
-                </div>
+<?php 
+        if($message['id_user'] == $_SESSION['user_id']):
 
-            </div>
+        
+        $class = 'tech'; // gauche 
 
+        else: 
+
+            $class = 'user'; // droite
+        endif;
+    ?>
+
+    <div class="message <?= $class ?>">
+        <div class="message-header">
+            <span><?= htmlspecialchars($message['name_user']) ?></span>
+            <span class="date">
+                <?= date('d/m/Y H:i', strtotime($message['created_at_message'])) ?>
+            </span>
+        </div>
+
+        <p><?= nl2br(htmlspecialchars($message['content_message'])) ?></p>
+    </div>
+
+<?php endforeach; ?>
+
+</div>
             <!-- FORM MESSAGE -->
-            <form class="message-form">
-                <textarea placeholder="Écrire un message..." required></textarea>
-                <button class="btn">Envoyer</button>
-            </form>
+             <?php if($callOnlyTicket['name_statut'] == "Fermé" ): 
+                
+                echo "<P> La discussion a été cloturéé ! </p>";
+             else:
+                ?>
+            <form class="message-form" method="POST" action="../traitements/traitement_message.php">
+    <textarea name="message" placeholder="Écrire un message..." required></textarea>
+    <button class="btn" name="submit">Envoyer</button>
+</form>
+
+<?php endif; ?>
 
         </section>
 

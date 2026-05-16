@@ -34,26 +34,7 @@ function selectAllTickets(){
    // $queryGetTickets = getPDO()->prepare("SELECT * FROM tickets INNER JOIN priorities ON tickets.priority_id = priorities.id_priority INNER JOIN statuts On tickets.statut_id = statuts.id_statut INNER JOIN users ON tickets.user_id = users.id_user");
 
 
-   $queryGetTickets = getPDO()->prepare("SELECT tickets.*,
-   priorities.name_priority,
-   statuts.name_statut,
- 
-   creator.name_user AS creator_name,
-   
-   tech.name_user AS tech_name
-   FROM tickets
-
-INNER JOIN priorities 
-    ON tickets.priority_id = priorities.id_priority
-
-INNER JOIN statuts 
-    ON tickets.statut_id = statuts.id_statut
-
-INNER JOIN users creator
-    ON tickets.user_id = creator.id_user
-
-LEFT JOIN users tech
-    ON tickets.assigned_to = tech.id_user");
+   $queryGetTickets = getPDO()->prepare("SELECT tickets.*, priorities.name_priority, statuts.name_statut, creator.name_user AS creator_name, tech.name_user AS tech_name FROM tickets INNER JOIN priorities ON tickets.priority_id = priorities.id_priority INNER JOIN statuts  ON tickets.statut_id = statuts.id_statut INNER JOIN users creator ON tickets.user_id = creator.id_user LEFT JOIN users tech ON tickets.assigned_to = tech.id_user");
 
     $queryGetTickets->execute();
 
@@ -119,29 +100,8 @@ function selectAllStatuts(){
             //$queryOnlyTicket = getPDO()->prepare("SELECT * FROM tickets INNER JOIN priorities ON tickets.priority_id = priorities.id_priority INNER JOIN statuts On tickets.statut_id = statuts.id_statut INNER JOIN users ON tickets.user_id = users.id_user WHERE id_ticket = :id_ticket");
 
 
+             $queryOnlyTicket = getPDO()->prepare("SELECT tickets.*,  priorities.name_priority, statuts.name_statut, creator.name_user AS creator_name, tech.name_user AS tech_name FROM tickets INNER JOIN priorities ON tickets.priority_id = priorities.id_priority INNER JOIN statuts ON tickets.statut_id = statuts.id_statut INNER JOIN users creator ON tickets.user_id = creator.id_user LEFT JOIN users tech ON tickets.assigned_to = tech.id_user WHERE id_ticket = :id_ticket");
 
-
-
-            $queryOnlyTicket = getPDO()->prepare("SELECT tickets.*,
-   priorities.name_priority,
-   statuts.name_statut,
- 
-   creator.name_user AS creator_name,
-   
-   tech.name_user AS tech_name
-   FROM tickets
-
-INNER JOIN priorities 
-    ON tickets.priority_id = priorities.id_priority
-
-INNER JOIN statuts 
-    ON tickets.statut_id = statuts.id_statut
-
-INNER JOIN users creator
-    ON tickets.user_id = creator.id_user
-
-LEFT JOIN users tech
-    ON tickets.assigned_to = tech.id_user WHERE id_ticket = :id_ticket");
             $queryOnlyTicket->bindParam(':id_ticket', $id_ticket);
             $queryOnlyTicket->execute();
 

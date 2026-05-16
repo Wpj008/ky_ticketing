@@ -92,11 +92,11 @@ function SelectAllRoles(){
 
 //function  de verification de la connexion user
 function checkLogin(){
-// Vérifier si l'utilisateur est connecté
-if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
-    header('Location: ../index.php');  // Rediriger vers la page de connexion
-    exit;  // Arrêter l'exécution des scripts suivants
-}
+    // Vérifier si l'utilisateur est connecté
+    if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
+         header('Location: ../index.php');  // Rediriger vers la page de connexion
+      exit;  // Arrêter l'exécution des scripts suivants
+    }
 }
 
 function getUser(){

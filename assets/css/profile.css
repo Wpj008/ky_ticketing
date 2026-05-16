@@ -1,0 +1,62 @@
+
+/* FORM */
+
+.profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* GROUP */
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #334155;
+}
+
+/* INPUT */
+
+.form-group input {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #dbe3ef;
+    font-size: 14px;
+    background: #fff;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #0d6efd;
+}
+
+/* DISABLED */
+
+.form-group input:disabled {
+    background: #f1f5fb;
+    cursor: not-allowed;
+}
+
+/* ACTION */
+
+.form-actions {
+    margin-top: 10px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+
+    .form-group input {
+        width: 100%;
+    }
+
+    .form-actions .btn {
+        width: 100%;
+    }
+}

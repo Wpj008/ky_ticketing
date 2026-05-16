@@ -8,7 +8,7 @@ $name = $_SESSION['name_user'] ;
     <button class="burger" id="burger">☰</button>
 
     <div class="header-left">
-        <h1>SupportPro</h1>
+        <h1>Ky_ticketing</h1>
     </div>
 
     <div class="header-right">
