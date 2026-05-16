@@ -71,7 +71,6 @@ $callAllTech = getTech();
                                 <option value="<?= $tech['id_user'] ?>"><?= $tech['name_user'] ?></option>
                             <?php endforeach; ?>
                         </select>
-
                         <button name="submit" class="btn">Enregistrer</button>
                     </div>
                 </div>

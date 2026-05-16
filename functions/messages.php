@@ -13,12 +13,12 @@ function createMessage($message, $ticket_id, $user_id){
 
      $queryMessage->execute();
 
-     echo "Message envoyé";
+     echo "<p style='color:green;'> Message envoyé </p>";
      exit;
 
      }catch(PDOException $e){
 
-     echo "Erreur lors de l'envoie du message : " . $e->getMessage();
+     echo "<p style='color:red;'> Erreur lors de l'envoie du message : </p>" . $e->getMessage();
      exit;
  }
 

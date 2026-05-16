@@ -20,12 +20,13 @@ function registerUser($name, $email, $password, $role) {
 
         $queryRegister->execute();
 
-        echo "Inscription réussie !";
+        echo "<p style='color:green;'> Inscription réussie ! </p>";
+        
         header("Location: ../pages/dashboard.php");
         exit;
         
     } catch (PDOException $e) {
-        echo "Erreur lors de l'inscription : " . $e->getMessage();
+        echo "<p style='color:red;'> Erreur lors de l'inscription : </p>" . $e->getMessage();
         exit;
     }
 }
@@ -61,11 +62,11 @@ $data = getPDO();
         exit;
 
         } else {
-            echo "Email ou mot de passe incorrect.";
+            echo "<p style='color:red;'> Email ou mot de passe incorrect. </p>";
         }
 
     } catch (PDOException $e) {
-        echo "Erreur de connexion à la base de données : " . $e->getMessage();
+        echo "<p style='color:red;'> Erreur de connexion à la base de données : </p>" . $e->getMessage();
         exit;
     }
 }
@@ -85,7 +86,7 @@ function SelectAllRoles(){
         return $roles;
 
     } catch (PDOException $e) {
-        echo "Erreur lors de la récupération des rôles : " . $e->getMessage();
+        echo "<p style='color:red;'> Erreur lors de la récupération des rôles : </p>" . $e->getMessage();
         exit;
     }
 }
@@ -112,7 +113,7 @@ function getUser(){
 
     }catch(PDOException $e){
 
-        echo "Erreur lors de la récupération de l'utilisateur : " . $e->getMessage();
+    echo "<p style='color:red;'> Erreur lors de la récupération de l'utilisateur : </p>" . $e->getMessage();
         exit;
     }
 
@@ -131,7 +132,7 @@ function getUser(){
     
             }catch(PDOException $e){
     
-                echo "Erreur lors de la récupération des techniciens : " . $e->getMessage();
+            echo "<p style='color:red;'> Erreur lors de la récupération des techniciens : </p>" . $e->getMessage();
                 exit;
     }
 

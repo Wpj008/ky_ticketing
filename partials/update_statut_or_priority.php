@@ -14,7 +14,6 @@ $callAllPriorities = selectAllPriorities();
    
     $_SESSION['id_priority_ticket'] = $callOnlyTicket['priority_id'];
     $_SESSION['id_statut_ticket'] = $callOnlyTicket['statut_id'];
-
    
 ?>
 

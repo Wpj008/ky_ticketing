@@ -36,11 +36,12 @@ $callRole = SelectAllRoles();
 
                 <h1>Inscription</h1>
 
-                <form action="../traitements/traitement_register.php" method="POST">
+                <form action="../traitements/traitement_register.php" method="POST" onsubmit="return verificationPassword();">
 
                     <div class="input-group">
                         <label>Nom</label>
-                        <input type="text" name="name" required>
+                        <input id="name" type="text" name="name" required>
+                        <div id="nameError" class="error-message"></div>
                     </div>
 
                     <div class="input-group">

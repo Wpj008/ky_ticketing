@@ -5,6 +5,8 @@ require_once "../functions/tickets.php";
 checkLogin();
 
 $callTickets = selectAllTickets();
+$callPriorities = selectAllPriorities();
+$callStatuts = selectAllStatuts();
 
 
 ?>
@@ -54,21 +56,25 @@ $callTickets = selectAllTickets();
 
         <!-- FILTRES -->
         <section class="filters">
-            <select>
-                <option>Statut</option>
-                <option>Nouveau</option>
-                <option>En cours</option>
-                <option>Résolu</option>
-            </select>
 
-            <select>
-                <option>Priorité</option>
-                <option>Faible</option>
-                <option>Moyenne</option>
-                <option>Haute</option>
-                <option>Critique</option>
-            </select>
-        </section>
+        <select id="statusFilter">
+    <option value="">Statut</option>
+    <?php foreach($callStatuts as $statut): ?>
+        <option value="<?= $statut['name_statut'] ?>">
+            <?= $statut['name_statut'] ?>
+         </option>
+         <?php endforeach; ?>
+    </select>
+
+
+    <select id="priorityFilter">
+         <option value="">Priorité</option>
+            <?php foreach($callPriorities as $priority): ?>
+        <option value="<?= $priority['name_priority'] ?>">
+            <?= $priority['name_priority'] ?>
+        </option>
+        <?php endforeach; ?>
+    </select>
 
         <!-- TABLE -->
         <section class="table-section">
@@ -98,9 +104,9 @@ $callTickets = selectAllTickets();
                         <td data-label="ID"><?= $i ?></td>
                         <td data-label="Titre"><?= $ticket['title_ticket'] ?></td>
                         <td data-label="Utilisateur"><?= $ticket['creator_name'] ?></td>
-                        <td data-label="Priorité"><span class="badge high"><?= $ticket['name_priority'] ?></span></td>
+                        <td data-label="Priorité"><span class="badge <?= $ticket['name_priority'] ?>"><?= $ticket['name_priority'] ?></span></td>
                         <td data-label="Statut">
-                            <span class="badge new"><?= $ticket['name_statut'] ?></span>
+                            <span class="badge <?= $ticket['name_statut'] ?>"><?= $ticket['name_statut'] ?></span>
                         </td>
                         <td data-label="Assigné à"><?= $ticket['tech_name'] ?? '-' ?></td>
                         <form method="POST" action="detail_ticket.php">
@@ -119,6 +125,7 @@ $callTickets = selectAllTickets();
 </main>
 
 <script src="../assets/js/app.js"></script>
+<script src="../assets/js/script.js"></script>
 
 </body>
 </html>

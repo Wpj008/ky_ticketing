@@ -59,7 +59,8 @@ checkLogin();
 
                 <!-- Boutons -->
                 <div class="form-actions">
-                    <button type="submit" name="submit" class="btn">Créer le ticket</button>
+
+                       <button type="submit" name="submit" class="btn">Créer le ticket</button>
                     <input type="reset" class="btn cancel" value="Annuler"/>
                 </div>
 

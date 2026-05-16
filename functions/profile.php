@@ -16,7 +16,7 @@ function selectUser($id_user){
 
     }catch(PDOException $e){
 
-    echo "Erreur de recuperation".$e->getMessage();
+    echo "<p style='color:red;'> Erreur de recuperation </p>".$e->getMessage();
 
     }
 }
@@ -36,7 +36,7 @@ function selectUser($id_user){
 
         }catch(PDOException $e){
 
-            echo " Erreur lors de la modification du mot de passe " .$e->getMessage();
+        echo "<p style='color:red;'> Erreur lors de la modification du mot de passe </p>" .$e->getMessage();
         }
 
 

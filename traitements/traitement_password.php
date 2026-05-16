@@ -22,9 +22,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
                        
                 updatePasseword($id_user, $confirm_password);
                 // Message de succès
-                echo "Votre mot de passe a été mis à jour avec succès.";
+                echo "<p style='color:green;'>  Votre mot de passe a été mis à jour avec succès. </p>";
             } else {
-                echo "Les mots de passe ne correspondent pas.";
+                echo "<p style='color:red;'> Les mots de passe ne correspondent pas. </p>";
             }
 
         }

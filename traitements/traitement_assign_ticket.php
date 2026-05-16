@@ -18,12 +18,12 @@ if(isset($_POST['id_tech'])){
         assignTechToTicket($id_ticket, $id_tech);
 
         } else {
-            echo "Veuillez sélectionner un technicien.";
+            echo "<p style='color:red;'> Veuillez sélectionner un technicien. </p>";
             exit;
         } 
         
         } else {
-            echo "Données de technicien manquantes.";
+            echo "<p style='color:red;'> Données de technicien manquantes. </p>";
             exit;
         }
 

@@ -21,12 +21,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
         registerUser($name, $email, $password, $role);
 
         } else {
-            echo "Veuillez remplir tous les champs.";
+            echo "<p style='color:red;'> Veuillez remplir tous les champs. </p>";
             exit;
         } 
         
         } else {
-            echo "Données d'inscription manquantes.";
+             echo "<p style='color:red;'> Données d'inscription manquantes. </p>";
             exit;
         }
 

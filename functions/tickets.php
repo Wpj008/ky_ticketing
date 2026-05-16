@@ -14,13 +14,14 @@ function createTicket($title, $description, $priority){
         $queryTicket->bindParam(':priority_id', $priority);
 
         $queryTicket->execute();
-        echo "Ticket créé avec succès !";
+        echo "<p style='color:green;'> Ticket créé avec succès ! </p>";
+
         header("Location: ../pages/dashboard.php");
         exit;
 
     }catch(PDOException $e){
 
-        echo "Erreur lors de la création du ticket : " . $e->getMessage();
+    echo "<p style='color:red;'> Erreur lors de la création du ticket : </p>" . $e->getMessage();
         exit;
     }
 
@@ -43,7 +44,7 @@ function selectAllTickets(){
     return $results;
 
     } catch(PDOException $e){
-        echo "Erreur lors de la récupération des tickets : " . $e->getMessage();
+        echo "<p style='color:red;'> Erreur lors de la récupération des tickets : </p>" . $e->getMessage();
         exit;
     }
 
@@ -66,7 +67,7 @@ function selectAllPriorities(){
 
 
     }catch(PDOException $e){
-        echo "Erreur lors de la récupération des priorités : " . $e->getMessage();
+        echo "<p style='color:red;'> Erreur lors de la récupération des priorités : </p>" . $e->getMessage();
         exit;
     }
 
@@ -85,7 +86,7 @@ function selectAllStatuts(){
         return $results;
 
     }catch(PDOException $e){
-        echo "Erreur lors de la récupération des statuts : " . $e->getMessage();
+        echo "<p style='color:red;'> Erreur lors de la récupération des statuts : </p>" . $e->getMessage();
         exit;
     }
 
@@ -110,7 +111,7 @@ function selectAllStatuts(){
             return $result;
 
         }catch(PDOException $e){
-            echo "Erreur lors de la récupération du ticket : " . $e->getMessage();
+            echo "<p style='color:red;'> Erreur lors de la récupération du ticket : </p>" . $e->getMessage();
             exit;
         }
 
@@ -127,12 +128,13 @@ function selectAllStatuts(){
 
             $queryAssignTech->execute();
 
-            echo "Technicien assigné avec succès !";
+            echo "<p style='color:green;'> Technicien assigné avec succès ! </p>";
+
             header("Location: ../pages/dashboard.php");
             exit;
 
         }catch(PDOException $e){
-            echo "Erreur lors de l'assignation du technicien : " . $e->getMessage();
+            echo "<p style='color:red;'> Erreur lors de l'assignation du technicien : </p>" . $e->getMessage();
 
         }
 
@@ -150,12 +152,13 @@ function selectAllStatuts(){
 
             $queryUpdateStatut->execute();
 
-            echo "Statut mis à jour avec succès !";
+            echo "<p style='color:green;'> Statut mis à jour avec succès ! </p>";
+
             header("Location: ../pages/dashboard.php");
             exit;
 
         }catch(PDOException $e){
-            echo "Erreur lors de la mise à jour du statut : " . $e->getMessage();
+            echo "<p style='color:red;'> Erreur lors de la mise à jour du statut : </p>" . $e->getMessage();
             exit;
         }
 
@@ -172,12 +175,12 @@ function selectAllStatuts(){
 
             $queryUpdatePriority->execute();
 
-            echo "Priorité mise à jour avec succès !";
+            echo "<p style='color:green;'> Priorité mise à jour avec succès ! </p>";
             header("Location: ../pages/dashboard.php");
             exit;
 
         }catch(PDOException $e){
-            echo "Erreur lors de la mise à jour de la priorité : " . $e->getMessage();
+            echo "<p style='color:red;'> Erreur lors de la mise à jour de la priorité : </p>" . $e->getMessage();
             exit;
         }
 

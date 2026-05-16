@@ -20,12 +20,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
          
 
         } else {
-            echo "Veuillez remplir tous les champs.";
+            echo "<p style='color:red;'> Veuillez remplir tous les champs. </p>";
             exit;
         } 
         
         } else {
-            echo "Données de connexion manquantes.";
+            echo "<p style='color:red;'> Données de connexion manquantes. </p>";
             exit;
         }
 

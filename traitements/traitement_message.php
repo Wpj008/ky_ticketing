@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
             createMessage($message, $ticket_id, $user_id);
          } else {
 
-         echo "Erreur lors de l'envoie de la requete !!";
+         echo "<p style='color:red;'> Erreur lors de l'envoie de la requete !! </p>";
          }
 
     }

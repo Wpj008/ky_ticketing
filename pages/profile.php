@@ -66,7 +66,7 @@ checkLogin();
 
                 <h2>Changement de Mot de Passe</h2>
 
-                <form class="profile-form" method="POST" action="../traitements/traitement_password.php" >
+                <form class="profile-form" method="POST" action="../traitements/traitement_password.php" onsubmit="return verificationPassword();">
                 <!-- Mot de passe -->
 
                 <div class="form-group">
@@ -77,7 +77,8 @@ checkLogin();
                 <!-- Confirmation -->
                 <div class="form-group">
                     <label>Confirmer mot de passe</label>
-                    <input name="confirm_password" type="password" placeholder="Confirmer le mot de passe">
+                    <input id="confirm_password" name="confirm_password" type="password" placeholder="Confirmer le mot de passe">
+                    <div id="passwordEror" class="error-message" style="color : red;"></div>
                 </div>
 
                 <!-- Action -->
@@ -92,6 +93,8 @@ checkLogin();
 </main>
 
 <script src="../assets/js/app.js"></script>
+
+<script src="../assets/js/verification.js"></script>
 
 </body>
 </html>
