@@ -13,7 +13,7 @@ if(isset($_POST['id_tech'])){
     
 
         $id_tech = htmlspecialchars($_POST['id_tech']);
-        $id_ticket = $_SESSION['id_ticket'];
+        $id_ticket = $_POST['id_ticket'];
 
         assignTechToTicket($id_ticket, $id_tech);
 

@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
 
          $message = htmlspecialchars($_POST['message']);
 
-         $ticket_id = $_SESSION['id_ticket'];
+         $ticket_id = $_POST['id_ticket'];
          $user_id = $_SESSION['user_id'];
 
             createMessage($message, $ticket_id, $user_id);

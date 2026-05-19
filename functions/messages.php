@@ -14,6 +14,7 @@ function createMessage($message, $ticket_id, $user_id){
      $queryMessage->execute();
 
      echo "<p style='color:green;'> Message envoyé </p>";
+     header("Location: ../pages/dashboard.php");
      exit;
 
      }catch(PDOException $e){

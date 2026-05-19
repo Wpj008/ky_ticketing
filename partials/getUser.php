@@ -1,9 +1,19 @@
 <?php 
 session_start();
 require_once "../functions/users.php";
+require_once "../functions/statistique.php";
 checkLogin();
 
 $callUser = getUser();
+
+
+ $totalTechs = countTechs();
+ $totalAdmin = countAdmin();
+ $TOTAL = TOLTALusers();
+ $totalUser = countUser();
+ 
+
+
 
 
 
@@ -33,22 +43,22 @@ $callUser = getUser();
         <section class="stats">
             <div class="card">
                 <h3>Total utilisateurs</h3>
-                <p>25</p>
+                <p><?=  $TOTAL['total_users'] ?></p>
             </div>
 
             <div class="card">
                 <h3>Utilisateurs</h3>
-                <p>18</p>
+                <p><?=  $totalUser['total_user'] ?></p>
             </div>
 
             <div class="card">
                 <h3>Techniciens</h3>
-                <p>5</p>
+                <p><?=  $totalTechs['total_techs'] ?></p>
             </div>
 
             <div class="card">
                 <h3>Administrateurs</h3>
-                <p>2</p>
+                <p><?=  $totalAdmin['total_admin'] ?></p>
             </div>
         </section>
 
@@ -69,8 +79,6 @@ $callUser = getUser();
                         <th>#</th>
                         <th>Nom</th>
                         <th>Email</th>
-                        <th>Total Tickets</th>
-                        <th>En cours</th>
                         <th>Date création</th>
                         <th>Action</th>
                     </tr>
@@ -89,12 +97,11 @@ $callUser = getUser();
                         <td data-label="ID"><?= $i ?></td>
                         <td data-label="Nom"><?= $user['name_user'] ?></td>
                         <td data-label="Email"><?= $user['email_user'] ?></td>
-                        <td data-label="Total Tickets"><?= $user['total_tickets'] ?></td>
-                        <td data-label="En cours"><?= $user['in_progress'] ?></td>
                         <td data-label="Date"><?= $user['created_at_user'] ?></td>
-                        <td data-label="Action">
-                            <button class="btn">Voir</button>
-                        </td>
+                        <form method="POST" action="detail_user.php">
+                            <input type="hidden" name="id_user" value="<?= $user['id_user']; ?>">
+                        <td data-label="Action"><button name="submit-ticket" class="btn">Voir</button></td>
+                        </form>
                     </tr>
 
                     <?php endforeach; ?>

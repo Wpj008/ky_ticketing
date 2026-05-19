@@ -19,8 +19,8 @@
 
     <nav class="sidebar-nav">
         <a href="../partials/dashboard_tech.php" class="active">Dashboard</a>
-        <a href="getTicket.php">Tickets</a>
-        <a href="getUser.php">Utilisateurs</a>
+        <a href="../partials/getTicket.php">Tickets</a>
+        <a href="../partials/getUser.php">Utilisateurs</a>
         <a href="../pages/profile.php">Profile</a>
     </nav>
 </aside>
@@ -34,9 +34,9 @@
 
     <nav class="sidebar-nav">
         <a href="../partials/dashboard_admin.php" class="active">Dashboard</a>
-        <a href="getTicket.php">Tickets</a>
-        <a href="getTech.php">Techniciens</a>
-        <a href="getUser.php">Utilisateurs</a>
+        <a href="../partials/getTicket.php">Tickets</a>
+        <a href="../partials/getTech.php">Techniciens</a>
+        <a href="../partials/getUser.php">Utilisateurs</a>
         <a href="../pages/profile.php">Profile</a>
     </nav>
 </aside>

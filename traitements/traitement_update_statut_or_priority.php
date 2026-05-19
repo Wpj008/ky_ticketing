@@ -8,10 +8,10 @@ checkLogin();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 
-    $id_ticket = $_SESSION['id_ticket'];
+    $id_ticket = $_POST['id_ticket'];
 
-    $id_statut_ticket = $_SESSION['id_statut_ticket'];
-    $id_priority_ticket = $_SESSION['id_priority_ticket'];
+    $id_statut_ticket = $_POST['statut_id'];
+    $id_priority_ticket = $_POST['priority_id'];
 
     $id_statut = $_POST['id_statut'];
     $id_priority = $_POST['id_priority'];

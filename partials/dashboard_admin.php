@@ -2,9 +2,15 @@
 session_start();
 require_once "../functions/users.php";
 require_once "../functions/tickets.php";
+require_once "../functions/statistique.php";
 checkLogin();
 
 $callTickets = selectAllTickets();
+$total_ticket_assign = countAssignedTickets();
+$total_ticket = countTickets();
+$total_ticket_new = countNewTickets();
+$total_ticket_critical = countCriticalTickets();
+$total_ticket_Notresolu = countNotResoluTickets();
 
 ?>
 
@@ -35,22 +41,27 @@ $callTickets = selectAllTickets();
         <section class="stats">
             <div class="card">
                 <h3>Total Tickets</h3>
-                <p>120</p>
+                <p><?= $total_ticket['total_tickets'] ?></p>
             </div>
 
             <div class="card">
-                <h3>En cours</h3>
-                <p>35</p>
+                <h3>Nouveau Ticket</h3>
+                <p><?= $total_ticket_new['total_new'] ?></p>
             </div>
 
             <div class="card">
-                <h3>Résolus</h3>
-                <p>60</p>
+                <h3>Ticket non Assigné</h3>
+                <p><?= $total_ticket_assign['total_assigned'] ?></p>
             </div>
 
             <div class="card">
-                <h3>Critiques</h3>
-                <p>10</p>
+                <h3>TIckets Critiques</h3>
+                <p><?= $total_ticket_critical['total_critical'] ?></p>
+            </div>
+
+            <div class="card">
+                <h3>TIckets Non résolu</h3>
+                <p><?= $total_ticket_Notresolu['total_not_resolu'] ?></p>
             </div>
         </section>
 
@@ -85,9 +96,9 @@ $callTickets = selectAllTickets();
                         <td data-label="ID"><?= $i ?></td>
                         <td data-label="Titre"><?= $ticket['title_ticket'] ?></td>
                         <td data-label="Utilisateur"><?= $ticket['creator_name'] ?></td>
-                        <td data-label="Priorité"><span class="badge high"><?= $ticket['name_priority'] ?></span></td>
+                        <td data-label="Priorité"><span class="priority-<?= $ticket['priority_id'] ?>"><?= $ticket['name_priority'] ?></span></td>
                         <td data-label="Statut">
-                            <span class="badge new"><?= $ticket['name_statut'] ?></span>
+                            <span class="status-<?= $ticket['statut_id'] ?>"><?= $ticket['name_statut'] ?></span>
                         </td>
                         <td data-label="Assigné à"><?= $ticket['tech_name'] ?? '-' ?></td>
                         <form method="POST" action="detail_ticket.php">
@@ -95,7 +106,10 @@ $callTickets = selectAllTickets();
                         <td data-label="Action"><button name="submit-ticket" class="btn">Voir</button></td>
                         </form>
                         <?php if($ticket['assigned_to'] === null): ?>
-                            <td data-label="Action"><a href="assign_ticket.php?id=<?= $ticket['id_ticket'] ?>" class="btn">Assigner</a></td>
+                            <form method="POST" action="assign_ticket.php">
+                            <input type="hidden" name="id_ticket" value="<?= $ticket['id_ticket']; ?>">
+                        <td data-label="Action"><button name="submit-ticket" class="btn">Assigner</button></td>
+                        </form>
                         <?php endif; ?>
                         
                     </tr>

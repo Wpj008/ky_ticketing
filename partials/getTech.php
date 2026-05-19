@@ -1,9 +1,15 @@
 <?php 
 session_start();
 require_once "../functions/users.php";
+require_once "../functions/statistique.php";
+
 checkLogin();
 
 $callTech = getTech();
+ $totalTechs = countTechs();
+$total_ticket = countTickets();
+$total_ticket_new = countNewTickets();
+$total_ticket_critical = countCriticalTickets();
 
 ?>
 
@@ -31,22 +37,22 @@ $callTech = getTech();
         <section class="stats">
             <div class="card">
                 <h3>Total techniciens</h3>
-                <p>5</p>
+                <p><?= $totalTechs['total_techs'] ?></p>
             </div>
 
             <div class="card">
                 <h3>Total tickets</h3>
-                <p>120</p>
+                <p><?= $total_ticket['total_tickets'] ?></p>
             </div>
 
             <div class="card">
-                <h3>Tickets en cours</h3>
-                <p>35</p>
+                <h3>Tickets Nouveaux</h3>
+                <p><?= $total_ticket_new['total_new'] ?></p>
             </div>
 
             <div class="card">
                 <h3>Tickets critiques</h3>
-                <p>10</p>
+                <p><?= $total_ticket_critical['total_critical'] ?></p>
             </div>
         </section>
 
@@ -66,9 +72,7 @@ $callTech = getTech();
                         <th>#</th>
                         <th>Nom</th>
                         <th>Email</th>
-                        <th>Total tickets</th>
-                        <th>En cours</th>
-                        <th>Critiques</th>
+                        <th>Date création</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -85,60 +89,14 @@ $callTech = getTech();
                         <td data-label="ID"><?= $i ?></td>
                         <td data-label="Nom"><?= $tech['name_user'] ?></td>
                         <td data-label="Email"><?= $tech['email_user'] ?></td>
-                        <td data-label="Total"><?= $tech['role_id'] ?></td>
-                        <td data-label="En cours"><?= $tech['role_id'] ?></td>
                         <td data-label="Critiques"><?= $tech['created_at_user'] ?></td>
-                        <td data-label="Action">
-                            <button class="btn">Voir</button>
-                        </td>
+                        <form method="POST" action="detail_tech.php">
+                            <input type="hidden" name="id_user" value="<?= $tech['id_user']; ?>">
+                        <td data-label="Action"><button name="submit-ticket" class="btn">Voir</button></td>
+                        </form>
                     </tr>
 
                 <?php endforeach; ?>
-
-                </tbody>
-            </table>
-        </section>
-
-        <!-- TABLE TICKETS D'UN TECHNICIEN -->
-        <section class="table-section">
-            <h2>Tickets du technicien</h2>
-
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Titre</th>
-                        <th>Utilisateur</th>
-                        <th>Priorité</th>
-                        <th>Statut</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-
-                    <tr>
-                        <td data-label="ID">#1</td>
-                        <td data-label="Titre">Bug connexion</td>
-                        <td data-label="Utilisateur">Richard</td>
-                        <td data-label="Priorité">
-                            <span class="badge high">Haute</span>
-                        </td>
-                        <td data-label="Statut">
-                            <span class="badge progress">En cours</span>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td data-label="ID">#2</td>
-                        <td data-label="Titre">Erreur paiement</td>
-                        <td data-label="Utilisateur">Marie</td>
-                        <td data-label="Priorité">
-                            <span class="badge critical">Critique</span>
-                        </td>
-                        <td data-label="Statut">
-                            <span class="badge new">Nouveau</span>
-                        </td>
-                    </tr>
 
                 </tbody>
             </table>

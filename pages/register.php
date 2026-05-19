@@ -50,11 +50,6 @@ $callRole = SelectAllRoles();
                     </div>
 
                     <div class="input-group">
-                        <label>Mot de passe</label>
-                        <input type="password" name="password" required>
-                    </div>
-
-                    <div class="input-group">
                         <label>Rôle</label>
                         <select name="role" required>
                             <option value="">Sélectionnez</option>
@@ -69,7 +64,7 @@ $callRole = SelectAllRoles();
                     </div>
 
                     <button type="submit" name="submit" class="btn-login">
-                        S'inscrire
+                        Inscrire
                     </button>
 
                 </form>

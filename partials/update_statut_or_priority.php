@@ -4,7 +4,16 @@ require_once "../functions/users.php";
 require_once "../functions/tickets.php";
 checkLogin();
 
-$ticket = $_SESSION['id_ticket'];
+//$ticket = $_SESSION['id_ticket'];
+
+
+if(!isset($_GET['id_ticket'])) {
+    header("Location: dashboard.php");
+    exit;
+}
+
+$ticket = $_GET['id_ticket'];
+
 
 $callAllStatuts = selectAllStatuts();
 $callAllPriorities = selectAllPriorities();
@@ -12,8 +21,9 @@ $callAllPriorities = selectAllPriorities();
     $callOnlyTicket = selectOnlyTicket($ticket);
 
    
-    $_SESSION['id_priority_ticket'] = $callOnlyTicket['priority_id'];
-    $_SESSION['id_statut_ticket'] = $callOnlyTicket['statut_id'];
+    //$_SESSION['id_priority_ticket'] = $callOnlyTicket['priority_id'];
+   // $_SESSION['id_statut_ticket'] = $callOnlyTicket['statut_id'];
+
    
 ?>
 
@@ -88,6 +98,7 @@ $callAllPriorities = selectAllPriorities();
                 <div><strong>Technicien :</strong> <?= $callOnlyTicket['tech_name'] ?></div>
 
                 <!-- ACTION -->
+                <input type="hidden" name="id_ticket" value="<?= $ticket ?>">
                 <div class="form-actions">
                     <button class="btn" name="submit">Enregistrer</button>
                 </div>

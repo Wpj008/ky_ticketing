@@ -8,14 +8,14 @@ checkLogin();
 if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
 
 
-    if(isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['role'])){
+    if(isset($_POST['name']) && isset($_POST['email']) && isset($_POST['role'])){
 
-        if(!empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['role'])){
+        if(!empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['role'])){
     
 
         $name = htmlspecialchars($_POST['name']);
         $email = htmlspecialchars($_POST['email']);
-        $password = htmlspecialchars($_POST['password']);
+        $password = "123456";
         $role = htmlspecialchars($_POST['role']);
 
         registerUser($name, $email, $password, $role);

@@ -200,13 +200,13 @@ tr:hover td {
 }
 
 /* BADGES */
-.badge {
+/*.badge {
   padding: 4px 10px;
   border-radius: 999px;
   font-size: 12px;
   font-weight: bold;
   color: #fff;
-}
+}*/
 
 .high {
   background: #f59e0b;
@@ -296,17 +296,88 @@ tr:hover td {
 }
 
 
-.Nouveau { background: #6b7280; }
-.Ouvert { background: #60a5fa; }
-.En-cours { background: #2563eb; }
-.En-attente-utilisateur { background: #f59e0b; }
-.Résolu { background: #10b981; }
-.Fermé { background: #111827; }
+.status-1 { 
+  background: #6b7280; 
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #fff;
 
-.Faible { background: #9ca3af; }
-.Moyenne { background: #3b82f6; }
-.Haute { background: #f59e0b; }
-.Critique { background: #ef4444; }
+}
+.status-2 {
+   background: #60a5fa; 
+   padding: 4px 10px;
+   border-radius: 999px;
+   font-size: 12px;
+   font-weight: bold;
+   color: #fff;
+  }
+.status-3 {
+   background: #2563eb;
+   padding: 4px 10px;
+   border-radius: 999px;
+   font-size: 12px;
+   font-weight: bold;
+   color: #fff; 
+  }
+.status-4 {
+   background: #f59e0b; 
+   padding: 4px 10px;
+   border-radius: 999px;
+   font-size: 12px;
+   font-weight: bold;
+   color: #fff;
+  }
+.status-5 { 
+  background: #10b981;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #fff;
+ }
+.status-6 { 
+  background: #111827;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #fff;
+ }
+
+.priority-1 { 
+  background: #9ca3af; 
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #fff;
+}
+.priority-2 {
+   background: #3b82f6;
+   padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #fff;
+ }
+.priority-3 {
+   background: #f59e0b;
+   padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #fff;
+ }
+.priority-4 { 
+  background: #ef4444;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #fff;
+ }
 
 /* ================= RESPONSIVE ================= */
 

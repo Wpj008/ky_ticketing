@@ -2,11 +2,16 @@
 session_start();
 require_once "../functions/users.php";
 require_once "../functions/tickets.php";
+require_once "../functions/statistique.php";
 checkLogin();
 
 $callTickets = selectAllTickets();
 $callPriorities = selectAllPriorities();
 $callStatuts = selectAllStatuts();
+
+$total_ticket = countTickets();
+$total_ticket_new = countNewTickets();
+$total_ticket_Notresolu = countNotResoluTickets();
 
 
 ?>
@@ -35,22 +40,18 @@ $callStatuts = selectAllStatuts();
         <section class="stats">
             <div class="card">
                 <h3>Total tickets</h3>
-                <p>120</p>
+                <p><?= $total_ticket['total_tickets'] ?></p>
             </div>
 
             <div class="card">
-                <h3>Nouveaux</h3>
-                <p>20</p>
+                <h3>Nouveaux Tickets</h3>
+                <p><?= $total_ticket_new['total_new'] ?></p>
             </div>
 
+        
             <div class="card">
-                <h3>En cours</h3>
-                <p>35</p>
-            </div>
-
-            <div class="card">
-                <h3>Résolus</h3>
-                <p>60</p>
+                <h3>Tickets non Résolus</h3>
+                <p><?= $total_ticket_Notresolu['total_not_resolu'] ?></p>
             </div>
         </section>
 
@@ -75,6 +76,15 @@ $callStatuts = selectAllStatuts();
         </option>
         <?php endforeach; ?>
     </select>
+
+    <select>
+                <option>Assignation</option>
+                <option>Tous</option>
+                <option>Mes tickets</option>
+                <option>Non assignés</option>
+            </select>
+
+        </section>
 
         <!-- TABLE -->
         <section class="table-section">
@@ -104,15 +114,19 @@ $callStatuts = selectAllStatuts();
                         <td data-label="ID"><?= $i ?></td>
                         <td data-label="Titre"><?= $ticket['title_ticket'] ?></td>
                         <td data-label="Utilisateur"><?= $ticket['creator_name'] ?></td>
-                        <td data-label="Priorité"><span class="badge <?= $ticket['name_priority'] ?>"><?= $ticket['name_priority'] ?></span></td>
+                        <td data-label="Priorité"><span class="priority-<?= $ticket['priority_id'] ?>"><?= $ticket['name_priority'] ?></span></td>
                         <td data-label="Statut">
-                            <span class="badge <?= $ticket['name_statut'] ?>"><?= $ticket['name_statut'] ?></span>
+                            <span class="status-<?= $ticket['statut_id'] ?>"><?= $ticket['name_statut'] ?></span>
                         </td>
                         <td data-label="Assigné à"><?= $ticket['tech_name'] ?? '-' ?></td>
-                        <form method="POST" action="detail_ticket.php">
-                            <input type="hidden" name="id_ticket" value="<?= $ticket['id_ticket']; ?>">
-                        <td data-label="Action"><button name="submit-ticket" class="btn">Voir</button></td>
-                        </form>
+                        <td data-label="Action">
+                     <form method="POST" action="detail_ticket.php">
+                          <input type="hidden" name="id_ticket" value="<?= $ticket['id_ticket']; ?>">
+                            <button type="submit" name="submit-ticket" class="btn">
+                                 Voir
+                             </button>
+                         </form>
+                        </td>
                     </tr>
 
                     <?php endforeach; ?>

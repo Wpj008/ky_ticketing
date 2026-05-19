@@ -46,7 +46,6 @@ $data = getPDO();
 
         $results = $queryLogin->fetch(PDO::FETCH_ASSOC);
 
-        var_dump($results);
 
         if($results && password_verify($password, $results['password_user'])){
 
@@ -137,6 +136,29 @@ function getUser(){
     }
 
 }
+
+function getOnlyUSer($id_user){
+
+    try{
+
+        $queryOnlyUser = getPDO()->prepare("SELECT * FROM users INNER JOIN roles ON roles.id_role = users.role_id WHERE id_user = :user_id ");
+
+       $queryOnlyUser->bindParam(":user_id", $id_user);
+       $queryOnlyUser->execute();
+
+       $result = $queryOnlyUser->fetch();
+
+       return $result;
+    }catch(PDOException $e){
+    
+         echo "<p style='color:red;'> Erreur lors de la récupération des techniciens : </p>" . $e->getMessage();
+        exit;
+    }
+
+
+}
+
+
 
 
 ?>

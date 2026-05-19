@@ -4,7 +4,7 @@ require_once "../functions/users.php";
 require_once "../functions/tickets.php";
 checkLogin();
 
-$ticket = $_SESSION['id_ticket'];
+$ticket = $_POST['id_ticket'];
 
     $callOnlyTicket = selectOnlyTicket($ticket);
 
@@ -40,17 +40,18 @@ $callAllTech = getTech();
 
             <form class="ticket-info" method="POST" action="../traitements/traitement_assign_ticket.php">
 
+                    <input type="hidden" name="id_ticket" value="<?= $ticket ?>">
                 <div><strong>Titre :</strong> <?= $callOnlyTicket['title_ticket'] ?></div>
                 <div><strong>Description :</strong> <?= $callOnlyTicket['description_ticket'] ?></div>
 
                 <div>
                     <strong>Statut :</strong>
-                    <span class="badge progress"><?= $callOnlyTicket['name_statut'] ?></span>
+                    <span class="status-<?= $callOnlyTicket['statut_id'] ?>"><?= $callOnlyTicket['name_statut'] ?></span>
                 </div>
 
                 <div>
                     <strong>Priorité :</strong>
-                    <span class="badge high"><?= $callOnlyTicket['name_priority'] ?></span>
+                    <span class="priority-<?= $callOnlyTicket['priority_id'] ?>"><?= $callOnlyTicket['name_priority'] ?></span>
                 </div>
 
                 <div><strong>Date création :</strong> <?= $callOnlyTicket['created_at_ticket'] ?></div>

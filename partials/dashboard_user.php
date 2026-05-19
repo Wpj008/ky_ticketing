@@ -4,7 +4,9 @@ require_once "../functions/users.php";
 require_once "../functions/tickets.php";
 checkLogin();
 
-    $callTickets = selectAllTickets();
+$id_user = $_SESSION['user_id'];
+
+    $getTickets = getTicketByUser($id_user);
 
 ?>
 
@@ -49,7 +51,7 @@ checkLogin();
 
                     $i = 0;
                     
-                    foreach ($callTickets as $ticket):
+                    foreach ($getTickets as $ticket):
 
                         $i++;
 
@@ -59,8 +61,8 @@ checkLogin();
                     <tr>
                         <td data-label="ID"><?= $i ?></td>
                         <td data-label="Sujet"><?= $ticket['title_ticket']; ?></td>
-                        <td data-label="Priorité"><span class="badge high"><?= $ticket['name_priority']; ?></span></td>
-                        <td data-label="Statut"><span class="badge progress"><?= $ticket['name_statut']; ?></span></td>
+                        <td data-label="Priorité"><span class="priority-<?= $ticket['priority_id'] ?>"><?= $ticket['name_priority']; ?></span></td>
+                        <td data-label="Statut"><span class="status-<?= $ticket['statut_id'] ?>"><?= $ticket['name_statut']; ?></span></td>
                         <td data-label="Assigné à"><?= $ticket['tech_name'] ?? '-' ?></td>
                         <form method="POST" action="detail_ticket.php">
                             <input type="hidden" name="id_ticket" value="<?= $ticket['id_ticket']; ?>">

@@ -117,6 +117,53 @@ function selectAllStatuts(){
 
     }
 
+    function getTicketByUser($id_user){
+
+    try{
+
+        //$queryOnlyTicket = getPDO()->prepare("SELECT * FROM tickets INNER JOIN priorities ON tickets.priority_id = priorities.id_priority INNER JOIN statuts On tickets.statut_id = statuts.id_statut INNER JOIN users ON tickets.user_id = users.id_user WHERE id_ticket = :id_ticket");
+
+
+         $queryOnlyTicket = getPDO()->prepare("SELECT tickets.*,  priorities.name_priority, statuts.name_statut, creator.name_user AS creator_name, tech.name_user AS tech_name, creator.email_user AS creator_email, tech.email_user AS tech_email FROM tickets INNER JOIN priorities ON tickets.priority_id = priorities.id_priority INNER JOIN statuts ON tickets.statut_id = statuts.id_statut INNER JOIN users creator ON tickets.user_id = creator.id_user LEFT JOIN users tech ON tickets.assigned_to = tech.id_user WHERE user_id = :id_user");
+
+        $queryOnlyTicket->bindParam(':id_user', $id_user);
+        $queryOnlyTicket->execute();
+
+        $result = $queryOnlyTicket->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+
+    }catch(PDOException $e){
+        echo "<p style='color:red;'> Erreur lors de la récupération des tickets de l'utilisateur : </p>" . $e->getMessage();
+        exit;
+    }
+
+}
+
+
+function getTicketByTech($id_user){
+
+try{
+
+    //$queryOnlyTicket = getPDO()->prepare("SELECT * FROM tickets INNER JOIN priorities ON tickets.priority_id = priorities.id_priority INNER JOIN statuts On tickets.statut_id = statuts.id_statut INNER JOIN users ON tickets.user_id = users.id_user WHERE id_ticket = :id_ticket");
+
+
+     $queryOnlyTicket = getPDO()->prepare("SELECT tickets.*,  priorities.name_priority, statuts.name_statut, creator.name_user AS creator_name, tech.name_user AS tech_name, creator.email_user AS creator_email, tech.email_user AS tech_email FROM tickets INNER JOIN priorities ON tickets.priority_id = priorities.id_priority INNER JOIN statuts ON tickets.statut_id = statuts.id_statut INNER JOIN users creator ON tickets.user_id = creator.id_user LEFT JOIN users tech ON tickets.assigned_to = tech.id_user WHERE assigned_to = :id_user");
+
+    $queryOnlyTicket->bindParam(':id_user', $id_user);
+    $queryOnlyTicket->execute();
+
+    $result = $queryOnlyTicket->fetchAll(PDO::FETCH_ASSOC);
+
+    return $result;
+
+}catch(PDOException $e){
+    echo "<p style='color:red;'> Erreur lors de la récupération des tickets du technicien : </p>" . $e->getMessage();
+    exit;
+}
+
+}
+
     function assignTechToTicket($id_ticket, $id_tech){
 
         try{
