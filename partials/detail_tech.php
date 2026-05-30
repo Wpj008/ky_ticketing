@@ -37,32 +37,27 @@ $user = getOnlyUSer($id_user);
 
         <!-- HEADER USER -->
         <section class="user-header">
-            <div class="user-avatar">
-                T
-            </div>
+            
 
-            <div class="user-details">
+        <div class="ticket-card">
 
                 <h2><?= $user['name_user'] ?></h2>
             
                 <p><?= $user['email_user'] ?></p>
                 <span class="role"><?= $user['name_role'] ?></span>
+                <span class="etat-user-<?= $user['isActif'] == 1 ? '1' : '2' ?>">
+                    <?= $user['isActif'] == 1 ? 'Actif' : 'Inactif' ?>
+                </span>
+
+                <?php if($_SESSION['role_id'] == 3): ?>
+
+                    <a class="btn" href="../pages/profile.php?id=<?= $user['id_user'] ?>">Voir le profil</a>
+
+                <?php endif; ?> 
 
             </div>
         </section>
 
-        <!-- STATS -->
-        <section class="stats">
-            <div class="card">
-                <h3>Tickets créés</h3>
-                <p>12</p>
-            </div>
-
-            <div class="card">
-                <h3>Tickets assignés</h3>
-                <p>5</p>
-            </div>
-        </section>
 
         <!-- LISTE TICKETS -->
         <section class="tickets-section">
@@ -90,7 +85,7 @@ $user = getOnlyUSer($id_user);
                     </div>
 
                     <form method="POST" action="detail_ticket.php">
-                        <input type="hidden" name="id_ticket" value="1">
+                        <input type="hidden" name="id_ticket" value="<?= $ticket['id_ticket']; ?>">
                         <button class="btn">Voir détail</button>
                     </form>
 

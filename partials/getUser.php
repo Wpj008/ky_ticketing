@@ -79,6 +79,7 @@ $callUser = getUser();
                         <th>#</th>
                         <th>Nom</th>
                         <th>Email</th>
+                        <th>Statut</th>
                         <th>Date création</th>
                         <th>Action</th>
                     </tr>
@@ -97,6 +98,13 @@ $callUser = getUser();
                         <td data-label="ID"><?= $i ?></td>
                         <td data-label="Nom"><?= $user['name_user'] ?></td>
                         <td data-label="Email"><?= $user['email_user'] ?></td>
+                        <td data-label="Statut">
+                            <?php if ($user['isActif'] == 1): ?>
+                                <span class="etat-user-1">Actif</span>
+                            <?php else: ?>
+                                <span class="etat-user-2">Inactif</span>
+                            <?php endif; ?>
+                        </td>
                         <td data-label="Date"><?= $user['created_at_user'] ?></td>
                         <form method="POST" action="detail_user.php">
                             <input type="hidden" name="id_user" value="<?= $user['id_user']; ?>">

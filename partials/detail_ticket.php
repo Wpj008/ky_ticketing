@@ -37,6 +37,7 @@ $ticket = $_POST['id_ticket'];
         <!-- INFOS TICKET -->
         <section class="table-section">
             <h2>Détail du ticket N° <?= $ticket ?></h2>
+            <?php var_dump($_POST['id_ticket']) ?>
             <div class="ticket-info">
 
                 <div><strong>Titre :</strong> <?= $callOnlyTicket['title_ticket'] ?></div>
@@ -109,7 +110,7 @@ $ticket = $_POST['id_ticket'];
              else:
                 ?>
             <form class="message-form" method="POST" action="../traitements/traitement_message.php">
-            <input type="hidden" name="id_ticket" value="<?= $ticket; ?>">
+                    <input type="hidden" name="id_ticket" value="<?= $ticket; ?>">
                     <textarea name="message" placeholder="Écrire un message..." required></textarea>
                     <button class="btn" name="submit">Envoyer</button>
             </form>

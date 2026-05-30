@@ -7,6 +7,8 @@ checkLogin();
 $id_user = $_SESSION['user_id'];
 
     $getTickets = getTicketByUser($id_user);
+    $callStatuts = selectAllStatuts();
+    $callPriorities = selectAllPriorities();
 
 ?>
 
@@ -30,6 +32,24 @@ $id_user = $_SESSION['user_id'];
         <section class="actions">
             <a href="../pages/createTicket.php" class="btn">+ Créer un ticket</a>
         </section>
+
+        <!-- FILTRES -->
+        <section class="filters">
+            <select id="statusFilter">
+                <option value="">Statut</option>
+                <?php foreach($callStatuts as $statut): ?>
+                    <option><?= $statut['name_statut'] ?></option>
+                <?php endforeach; ?>
+            </select>
+
+            <select id="priorityFilter">
+                <option value="">Priorité</option>
+                <?php foreach($callPriorities as $priority): ?>
+                    <option><?= $priority['name_priority'] ?></option>
+                <?php endforeach; ?>
+            </select>
+        </section>
+
 
         <section class="table-section">
             <h2>Liste de mes tickets</h2>
@@ -58,7 +78,11 @@ $id_user = $_SESSION['user_id'];
                         $_SESSION['id_ticket'] = $ticket['id_ticket'];
 
                         ?>
-                    <tr>
+                    <tr
+                             data-status="<?= $ticket['name_statut'] ?>" 
+                             data-priority="<?= $ticket['name_priority'] ?>"
+                    
+                    >
                         <td data-label="ID"><?= $i ?></td>
                         <td data-label="Sujet"><?= $ticket['title_ticket']; ?></td>
                         <td data-label="Priorité"><span class="priority-<?= $ticket['priority_id'] ?>"><?= $ticket['name_priority']; ?></span></td>
@@ -77,5 +101,6 @@ $id_user = $_SESSION['user_id'];
 </main>
 
 <script src="../assets/js/app.js"></script>
+<script src="../assets/js/script.js"></script>
 </body>
 </html>

@@ -36,15 +36,15 @@ $getTickets = getTicketByTech($id_user);
 
         <!-- FILTRES -->
         <section class="filters">
-            <select>
-                <option>Statut</option>
+            <select id="statusFilter">
+                <option value="">Statut</option>
                 <?php foreach($callStatuts as $statut): ?>
                     <option><?= $statut['name_statut'] ?></option>
                 <?php endforeach; ?>
             </select>
 
-            <select>
-                <option>Priorité</option>
+            <select id="priorityFilter">
+                <option value="">Priorité</option>
                 <?php foreach($callPriorities as $priority): ?>
                     <option><?= $priority['name_priority'] ?></option>
                 <?php endforeach; ?>
@@ -79,7 +79,12 @@ $getTickets = getTicketByTech($id_user);
                     
                     $_SESSION['id_ticket'] = $ticket['id_ticket'];
                     ?>    
-                    <tr>
+                    <tr
+
+                            data-status="<?= $ticket['name_statut'] ?>" 
+                             data-priority="<?= $ticket['name_priority'] ?>"
+                    
+                    >
                         <td data-label="ID"><?= $i ?></td>
                         <td data-label="Titre"><?= $ticket['title_ticket'] ?></td>
                         <td data-label="Utilisateur"><?= $ticket['creator_name'] ?></td>
@@ -106,6 +111,7 @@ $getTickets = getTicketByTech($id_user);
 
 
 <script src="../assets/js/app.js"></script>
+<script src="../assets/js/script.js"></script>
 
 </body>
 </html>

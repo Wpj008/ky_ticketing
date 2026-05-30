@@ -72,6 +72,7 @@ $total_ticket_critical = countCriticalTickets();
                         <th>#</th>
                         <th>Nom</th>
                         <th>Email</th>
+                        <th>Statut</th>
                         <th>Date création</th>
                         <th>Action</th>
                     </tr>
@@ -89,6 +90,13 @@ $total_ticket_critical = countCriticalTickets();
                         <td data-label="ID"><?= $i ?></td>
                         <td data-label="Nom"><?= $tech['name_user'] ?></td>
                         <td data-label="Email"><?= $tech['email_user'] ?></td>
+                        <td data-label="Statut">
+                            <?php if ($tech['isActif'] == 1): ?>
+                                <span class="etat-user-1">Actif</span>
+                            <?php else: ?>
+                                <span class="etat-user-2">Inactif</span>
+                            <?php endif; ?>
+                        </td>
                         <td data-label="Critiques"><?= $tech['created_at_user'] ?></td>
                         <form method="POST" action="detail_tech.php">
                             <input type="hidden" name="id_user" value="<?= $tech['id_user']; ?>">

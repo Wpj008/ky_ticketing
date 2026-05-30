@@ -3,7 +3,12 @@ session_start();
 require_once "../functions/users.php";
 require_once "../functions/profile.php";
 
-$id_user = $_SESSION['user_id'];
+if(isset($_GET['id'])) {
+    $id_user = $_GET['id'];
+} else {
+    $id_user = $_SESSION['user_id'];
+}
+
 
 $selectuser = selectUser($id_user);
  
@@ -37,23 +42,43 @@ checkLogin();
 
             <div class="profile-form">
 
+            <form method="POST" action="../traitements/traitement_update_or_delete_user.php">
+
                 <!-- Nom -->
                 <div class="form-group">
+
+                    <input type="hidden" name="id_user" value="<?= $selectuser['id_user'] ?>">
                     <label>Nom</label>
-                    <input type="text" value="<?= $selectuser['name_user'] ?>" disabled>
+                    <input id="inputName" name="name_user" type="text" value="<?= $selectuser['name_user'] ?>" disabled>
+                    <input type="hidden" name="name_user_hidden" value="<?= $selectuser['name_user'] ?>">
                 </div>
 
                 <!-- Email (non modifiable) -->
                 <div class="form-group">
                     <label>Email</label>
-                    <input type="email" value="<?= $selectuser['email_user'] ?>" disabled>
+                    <input id="inputEmail" name="email_user" type="email" value="<?= $selectuser['email_user'] ?>" disabled>
+                    <input type="hidden" name="email_user_hidden" value="<?= $selectuser['email_user'] ?>">
                 </div>
 
                 <!-- Rôle -->
                 <div class="form-group">
                     <label>Rôle</label>
-                    <input type="text" value="<?= $selectuser['name_role'] ?>" disabled>
+                    <input id="inputRule" type="text" value="<?= $selectuser['name_role'] ?>" disabled>
                 </div>
+
+                <br><br>
+
+                <button class="btn-warning" onclick="ActivateButton()" id="btnActivate">Activer Modifications</button>
+                <button class="btn-warning" onclick="DesactivateButton()" id="btnDesactivate" disabled="disabled">Désactiver Modifications</button>
+               
+               
+
+                <button name="submitUpdate" class="btn-safe" id="btnValidate" disabled="disabled">Valider Modifications</button>
+                <button name="submitDelete" class="btn-danger" id="btnDelete" disabled="disabled">Supprimer Compte</button>
+
+
+                </form>
+
             </div>
 
 

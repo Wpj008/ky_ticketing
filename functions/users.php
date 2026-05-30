@@ -158,6 +158,79 @@ function getOnlyUSer($id_user){
 
 }
 
+function updateName($id_user, $name){
+
+    try{
+
+        $queryUpdate = getPDO()->prepare("UPDATE users SET name_user = :name WHERE id_user = :user_id");
+
+        $queryUpdate->bindParam(':name', $name);
+        $queryUpdate->bindParam(':user_id', $id_user);
+
+        $queryUpdate->execute();
+
+        echo "<p style='color:green;'> Nom mis à jour avec succès ! </p>";
+
+    }catch(PDOException $e){
+
+        echo "<p style='color:red;'> Erreur lors de la mise à jour du nom : </p>" . $e->getMessage();
+        exit;
+
+    }
+
+
+}
+
+
+function updateEmail($id_user, $email){
+
+    try{
+
+        $queryUpdate = getPDO()->prepare("UPDATE users SET email_user = :email WHERE id_user = :user_id");
+
+        $queryUpdate->bindParam(':email', $email);
+        $queryUpdate->bindParam(':user_id', $id_user);
+
+        $queryUpdate->execute();
+
+        echo "<p style='color:green;'> Email mis à jour avec succès ! </p>";
+
+    }catch(PDOException $e){
+
+        echo "<p style='color:red;'> Erreur lors de la mise à jour de l'email : </p>" . $e->getMessage();
+        exit;
+
+    }
+
+
+}
+
+function deleteUser($id_user){
+
+
+    try{
+
+    $queryDelete = getPDO()->prepare("UPDATE users SET isActif = 0 WHERE id_user = :user_id");
+
+    $queryDelete->bindParam(':user_id', $id_user);
+    $queryDelete->execute();
+
+        echo "<p style='color:green;'> Compte supprimé avec succès ! </p>";
+    
+       header("Location: ../pages/dashboard.php");
+       exit;
+
+
+    }catch(PDOException $e){
+
+        echo "<p style='color:red;'> Erreur lors de la suppression du compte : </p>" . $e->getMessage();
+        exit;
+
+    }
+
+
+}
+
 
 
 

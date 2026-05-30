@@ -77,12 +77,6 @@ $total_ticket_Notresolu = countNotResoluTickets();
         <?php endforeach; ?>
     </select>
 
-    <select>
-                <option>Assignation</option>
-                <option>Tous</option>
-                <option>Mes tickets</option>
-                <option>Non assignés</option>
-            </select>
 
         </section>
 
@@ -111,6 +105,11 @@ $total_ticket_Notresolu = countNotResoluTickets();
                     $i++;
                     ?>    
                     <tr>
+
+                    <tr 
+                            data-status="<?= $ticket['name_statut'] ?>" 
+                             data-priority="<?= $ticket['name_priority'] ?>"
+                    >
                         <td data-label="ID"><?= $i ?></td>
                         <td data-label="Titre"><?= $ticket['title_ticket'] ?></td>
                         <td data-label="Utilisateur"><?= $ticket['creator_name'] ?></td>

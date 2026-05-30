@@ -16,12 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     $id_statut = $_POST['id_statut'];
     $id_priority = $_POST['id_priority'];
 
-
-    /*
-    ==========================
-    UPDATE STATUT
-    ==========================
-    */
+//update statut
 
     if(isset($_POST['id_statut'])){
             if (!empty($id_statut)) {
@@ -36,11 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     }
 
 
-    /*
-    ==========================
-    UPDATE PRIORITY
-    ==========================
-    */
+ //update priority
 
         if(isset($_POST['id_priority'])){
     if (!empty($id_priority)) {
@@ -55,11 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
         }
 
 
-    /*
-    ==========================
-    REDIRECTION
-    ==========================
-    */
+   //redirection vers le dashboard
 
     header("Location: ../pages/dashboard.php");
     exit;
