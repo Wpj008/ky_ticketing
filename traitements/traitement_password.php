@@ -36,6 +36,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
 
 
 
+} else if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submitReinitialisation'])) {
+
+    ReinitialisationPassword($id_user);
+    echo "<p style='color:green;'>  Le mot de passe a été réinitialisé !</p>";
+
+  
+    header("Location: ../pages/dashboard.php");
+    exit;
+
+} else {
+
+    header("Location: ../pages/profile.php");
+
 }
 
 

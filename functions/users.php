@@ -1,14 +1,14 @@
 <?php
 require_once "data.php";
 
-function registerUser($name, $email, $password, $role) {
+function registerUser($name, $email, $password, $role) {// function pour enregistrer un nouvel utilisateur (insertion dans la table users)
 
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
         $data = getPDO();
 
 
-    try {
+    try {// On essaye d'exécuter la requête d'insertion dans la base de données, et on attrape les erreurs éventuelles avec le catch
 
 
         $queryRegister = $data->prepare("INSERT INTO users (name_user, email_user, password_user, role_id) VALUES (:name, :email, :password, :role)");
@@ -33,7 +33,7 @@ function registerUser($name, $email, $password, $role) {
 
 
 
-function loginUser($email, $password){
+function loginUser($email, $password){// function pour connecter un utilisateur (vérification de l'email et du mot de passe, et création de la session)
 
 $data = getPDO();
 
@@ -56,9 +56,16 @@ $data = getPDO();
             $_SESSION['email_user'] = $results['email_user'];
             $_SESSION['role_id'] = $results['role_id'];
 
+        if($results['isActif'] == 0){
+            echo "<p style='color:red;'> Votre compte a été supprimé. Veuillez contacter l'administrateur. </p>";
+            session_destroy();
+            exit;
 
-        header("Location: ../pages/dashboard.php");
-        exit;
+        }else{
+            header("Location: ../pages/dashboard.php");
+            exit;
+     
+        }
 
         } else {
             echo "<p style='color:red;'> Email ou mot de passe incorrect. </p>";
@@ -71,7 +78,7 @@ $data = getPDO();
 }
 
 
-function SelectAllRoles(){
+function SelectAllRoles(){// function pour récupérer tous les rôles (pour le dropdown de création de compte dans le dashboard)
 
     $data = getPDO();
 
@@ -99,7 +106,7 @@ function checkLogin(){
     }
 }
 
-function getUser(){
+function getUser(){// function pour récupérer tous les utilisateurs (pour l'affichage dans le dashboard)
 
     try{
 
@@ -118,7 +125,7 @@ function getUser(){
 
 }
 
-    function getTech(){
+    function getTech(){// function pour récupérer tous les techniciens (pour l'affichage dans le dashboard et pour l'assignation de ticket)
         
         try{
 
@@ -137,7 +144,7 @@ function getUser(){
 
 }
 
-function getOnlyUSer($id_user){
+function getOnlyUSer($id_user){// function pour récupérer un seul utilisateur (pour l'affichage dans la page de profil et pour la modification du profil)
 
     try{
 
@@ -158,7 +165,7 @@ function getOnlyUSer($id_user){
 
 }
 
-function updateName($id_user, $name){
+function updateName($id_user, $name){// function pour modifier le nom d'un utilisateur (update dans la table users)
 
     try{
 
@@ -182,7 +189,7 @@ function updateName($id_user, $name){
 }
 
 
-function updateEmail($id_user, $email){
+function updateEmail($id_user, $email){// function pour modifier l'email d'un utilisateur (update dans la table users)
 
     try{
 
@@ -205,7 +212,7 @@ function updateEmail($id_user, $email){
 
 }
 
-function deleteUser($id_user){
+function deleteUser($id_user){// function pour supprimer un utilisateur (update dans la table users)
 
 
     try{

@@ -1,7 +1,7 @@
 <?php 
 require_once "data.php";
 
-function TOLTALusers(){
+function TOLTALusers(){// function pour compter le nombre total d'utilisateurs (pour l'affichage dans le dashboard)
 
     try{
 
@@ -17,7 +17,7 @@ function TOLTALusers(){
 }
 
 
-function countTechs(){
+function countTechs(){// function pour compter le nombre total de techniciens (pour l'affichage dans le dashboard)
 
     try{
 
@@ -32,7 +32,7 @@ function countTechs(){
     }
 }
 
-function countAdmin(){
+function countAdmin(){// function pour compter le nombre total d'administrateurs (pour l'affichage dans le dashboard)
 
     try{
 
@@ -47,7 +47,7 @@ function countAdmin(){
     }
 }
 
-function countUser(){
+function countUser(){// function pour compter le nombre total d'utilisateurs (pour l'affichage dans le dashboard)
 
     try{
 
@@ -63,7 +63,7 @@ function countUser(){
 }
 
 
-function countTickets(){
+function countTickets(){// function pour compter le nombre total de tickets (pour l'affichage dans le dashboard)
 
     $query = getPDO()->prepare("SELECT COUNT(*) AS total_tickets FROM tickets");
     $query->execute();
@@ -73,7 +73,7 @@ function countTickets(){
 
 
 
-function countCriticalTickets(){
+function countCriticalTickets(){// function pour compter le nombre total de tickets critiques (pour l'affichage dans le dashboard)
 
     $query = getPDO()->prepare(" SELECT COUNT(*) AS total_critical FROM tickets WHERE priority_id = 4");
 
@@ -83,7 +83,7 @@ function countCriticalTickets(){
 }
 
 
-function countNewTickets(){
+function countNewTickets(){// function pour compter le nombre total de tickets nouveaux (pour l'affichage dans le dashboard)
 
     $query = getPDO()->prepare(" SELECT COUNT(*) AS total_new FROM tickets WHERE statut_id = 1");
 
@@ -92,7 +92,7 @@ function countNewTickets(){
     return $query->fetch(PDO::FETCH_ASSOC);
 }
 
-function countNotResoluTickets(){
+function countNotResoluTickets(){// function pour compter le nombre total de tickets non résolus (pour l'affichage dans le dashboard)
 
     $query = getPDO()->prepare(" SELECT COUNT(*) AS total_not_resolu FROM tickets WHERE statut_id < 5 ");
 
@@ -102,7 +102,7 @@ function countNotResoluTickets(){
 }
 
 
-function countAssignedTickets(){
+function countAssignedTickets(){// function pour compter le nombre total de tickets assignés (pour l'affichage dans le dashboard)
 
     $query = getPDO()->prepare("SELECT COUNT(*) AS total_assigned FROM tickets WHERE assigned_to IS NULL");
 
@@ -110,14 +110,6 @@ function countAssignedTickets(){
 
     return $query->fetch();
 }
-
-
-
-
-
-
-
-
 
 
 ?>

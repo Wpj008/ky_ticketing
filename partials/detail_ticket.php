@@ -37,7 +37,7 @@ $ticket = $_POST['id_ticket'];
         <!-- INFOS TICKET -->
         <section class="table-section">
             <h2>Détail du ticket N° <?= $ticket ?></h2>
-            <?php var_dump($_POST['id_ticket']) ?>
+           
             <div class="ticket-info">
 
                 <div><strong>Titre :</strong> <?= $callOnlyTicket['title_ticket'] ?></div>
@@ -75,38 +75,38 @@ $ticket = $_POST['id_ticket'];
 
             <div class="messages">
 
-<?php foreach ($callMessage as $message): ?>
+            <?php foreach ($callMessage as $message): ?>
 
-<?php 
-        if($message['id_user'] == $_SESSION['user_id']):
+            <?php 
+                  if($message['id_user'] == $_SESSION['user_id']):
 
         
-        $class = 'tech'; // gauche 
+                     $class = 'tech'; // gauche 
 
-        else: 
+                         else: 
 
-            $class = 'user'; // droite
-        endif;
-    ?>
+                          $class = 'user'; // droite
+                    endif;
+                ?>
 
-    <div class="message <?= $class ?>">
-        <div class="message-header">
-            <span><?= ($message['name_user']) ?></span>
-            <span class="date">
-                <?= date('d/m/Y H:i', strtotime($message['created_at_message'])) ?>
-            </span>
-        </div>
+            <div class="message <?= $class ?>">
+                 <div class="message-header">
+                    <span><?= ($message['name_user']) ?></span>
+                    <span class="date">
+                        <?= date('d/m/Y H:i', strtotime($message['created_at_message'])) ?>
+                      </span>
+            </div>
 
-        <p><?= nl2br($message['content_message']) ?></p>
-    </div>
+                 <p><?= nl2br($message['content_message']) ?></p>
+                </div>
 
         <?php endforeach; ?>
 
         </div>
             <!-- FORM MESSAGE -->
-             <?php if($callOnlyTicket['name_statut'] == "Fermé" ): 
+         <?php if($callOnlyTicket['name_statut'] == "Fermé" ): 
                 
-                echo "<P> La discussion a été cloturéé ! </p>";
+                echo "<P style='color: red;'> La discussion a été cloturéé ! </p>";
              else:
                 ?>
             <form class="message-form" method="POST" action="../traitements/traitement_message.php">
@@ -115,7 +115,7 @@ $ticket = $_POST['id_ticket'];
                     <button class="btn" name="submit">Envoyer</button>
             </form>
 
-<?php endif; ?>
+        <?php endif; ?>
 
         </section>
 

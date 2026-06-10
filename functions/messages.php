@@ -1,7 +1,7 @@
 <?php 
 require_once "data.php";
 
-function createMessage($message, $ticket_id, $user_id){
+function createMessage($message, $ticket_id, $user_id){// function pour créer un message (insert dans la table messages)
 
     try{
 
@@ -26,7 +26,7 @@ function createMessage($message, $ticket_id, $user_id){
 }
 
 
-function selectMessage($ticket_id){
+function selectMessage($ticket_id){// function pour selectionner les messages d'un ticket et l'afficher dans la discussion (select dans la table messages)
 
 $querySelectMessage = getPDO()->prepare("SELECT * FROM messages INNER JOIN users ON users.id_user = messages.user_id INNER JOIN tickets ON tickets.id_ticket = messages.ticket_id WHERE messages.ticket_id = $ticket_id ORDER BY messages.created_at_message ASC");
 
@@ -37,25 +37,5 @@ $results = $querySelectMessage->fetchAll();
 return $results;
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ?>

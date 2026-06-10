@@ -61,13 +61,13 @@ else if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submitDelete'])) 
 
         $id_user = $_POST['id_user'];
 
-        if (!empty($id_user)) {
+        if (!empty($id_user) && $_SESSION['role_id'] == 3) {
 
             deleteUser($id_user);
 
         } else {
 
-            echo "<p style='color:red;'> ID utilisateur manquant. </p>";
+            echo "<p style='color:red;'> ID utilisateur manquant ou vous n'avez pas les droits nécessaires. </p>";
 
         }
 

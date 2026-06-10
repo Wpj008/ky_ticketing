@@ -87,6 +87,31 @@ checkLogin();
 
 <br><br><br>
 
+            <?php if($_SESSION['role_id'] == 3 && $_SESSION['user_id'] != $id_user): ?>
+
+            <section class="table-section">
+
+                <h2>Réinitialisation du Mot de Passe</h2>
+
+                <form class="profile-form" method="POST" action="../traitements/traitement_password.php" >
+                <!-- Mot de passe -->
+
+                <div class="form-group">
+                    <label>Reinitialisation</label>
+                    <input name="password_reinitialisation" type="password" placeholder="123456" disabled>
+                </div>
+
+
+                <!-- Action -->
+                <div class="form-actions">
+                    <button class="btn-danger" name="submitReinitialisation">Reinitialiser</button>
+                </div>
+
+            </form>
+        </section>
+
+
+            <?php else: ?>
                 <section class="table-section">
 
                 <h2>Changement de Mot de Passe</h2>
@@ -113,6 +138,7 @@ checkLogin();
 
             </form>
         </section>
+            <?php endif; ?>
 
     </div>
 </main>

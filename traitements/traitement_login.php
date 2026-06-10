@@ -1,5 +1,5 @@
 <?php 
-session_start();
+
 require_once "../functions/data.php";
 require_once "../functions/users.php";
 
@@ -13,8 +13,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
         $email = htmlspecialchars($_POST['email']);
         $password = htmlspecialchars($_POST['password']);
 
-        var_dump($email);
-        var_dump($password);
 
          loginUser($email, $password);
          

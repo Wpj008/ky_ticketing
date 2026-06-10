@@ -1,7 +1,7 @@
 <?php 
 require_once "data.php";
 
-function createTicket($title, $description, $priority){
+function createTicket($title, $description, $priority){// function pour créer un ticket (insertion dans la table tickets)
 
     try{
 
@@ -28,21 +28,21 @@ function createTicket($title, $description, $priority){
 
 }
 
-function selectAllTickets(){
+function selectAllTickets(){// function pour récupérer tous les tickets avec une jointure pour afficher les détails (priorité, statut, créateur, technicien assigné)
 
     try{
 
    // $queryGetTickets = getPDO()->prepare("SELECT * FROM tickets INNER JOIN priorities ON tickets.priority_id = priorities.id_priority INNER JOIN statuts On tickets.statut_id = statuts.id_statut INNER JOIN users ON tickets.user_id = users.id_user");
 
 
-   $queryGetTickets = getPDO()->prepare("SELECT tickets.*, priorities.name_priority, statuts.name_statut, creator.name_user AS creator_name, tech.name_user AS tech_name FROM tickets INNER JOIN priorities ON tickets.priority_id = priorities.id_priority INNER JOIN statuts  ON tickets.statut_id = statuts.id_statut INNER JOIN users creator ON tickets.user_id = creator.id_user LEFT JOIN users tech ON tickets.assigned_to = tech.id_user");
+   $queryGetTickets = getPDO()->prepare("SELECT tickets.*, priorities.name_priority, statuts.name_statut, creator.name_user AS creator_name, tech.name_user AS tech_name, creator.isActif FROM tickets INNER JOIN priorities ON tickets.priority_id = priorities.id_priority INNER JOIN statuts  ON tickets.statut_id = statuts.id_statut INNER JOIN users creator ON tickets.user_id = creator.id_user LEFT JOIN users tech ON tickets.assigned_to = tech.id_user WHERE creator.isActif = 1");
 
     $queryGetTickets->execute();
 
     $results = $queryGetTickets->fetchAll(PDO::FETCH_ASSOC);
 
     return $results;
-
+ 
     } catch(PDOException $e){
         echo "<p style='color:red;'> Erreur lors de la récupération des tickets : </p>" . $e->getMessage();
         exit;
@@ -53,7 +53,7 @@ function selectAllTickets(){
 }
 
 
-function selectAllPriorities(){
+function selectAllPriorities(){// function pour récupérer toutes les priorités (pour le dropdown de création de ticket et de modification de la priorité dans le dashboard)
 
     try{
 
@@ -73,7 +73,7 @@ function selectAllPriorities(){
 
 }
 
-function selectAllStatuts(){
+function selectAllStatuts(){// function pour récupérer tous les statuts (pour le dropdown de modification du statut dans le dashboard)
 
     try{
 
@@ -94,7 +94,7 @@ function selectAllStatuts(){
 
 
 
-    function selectOnlyTicket($id_ticket){
+    function selectOnlyTicket($id_ticket){// function pour récupérer un seul ticket avec tous les détails (priorité, statut, créateur, technicien assigné)
 
         try{
 
@@ -117,7 +117,7 @@ function selectAllStatuts(){
 
     }
 
-    function getTicketByUser($id_user){
+    function getTicketByUser($id_user){// function pour récupérer tous les tickets d'un utilisateur avec une jointure pour afficher les détails (priorité, statut, créateur, technicien assigné)
 
     try{
 
@@ -141,7 +141,7 @@ function selectAllStatuts(){
 }
 
 
-function getTicketByTech($id_user){
+function getTicketByTech($id_user){// function pour récupérer tous les tickets assignés à un technicien avec une jointure pour afficher les détails (priorité, statut, créateur, technicien assigné)
 
 try{
 
@@ -164,7 +164,7 @@ try{
 
 }
 
-    function assignTechToTicket($id_ticket, $id_tech){
+    function assignTechToTicket($id_ticket, $id_tech){// function pour assigner un technicien à un ticket (mise à jour de la colonne assigned_to dans la table tickets)
 
         try{
 
@@ -187,7 +187,7 @@ try{
 
     }
 
-    function updateStatut($id_ticket, $id_statut){
+    function updateStatut($id_ticket, $id_statut){// function pour mettre à jour le statut d'un ticket (mise à jour de la colonne statut_id dans la table tickets)
 
         try{
 
@@ -211,7 +211,7 @@ try{
 
     }
 
-    function updatePriority($id_ticket, $id_priority){
+    function updatePriority($id_ticket, $id_priority){// function pour mettre à jour la priorité d'un ticket (mise à jour de la colonne priority_id dans la table tickets)
 
         try{
 
